@@ -3,11 +3,14 @@
 </style>
 
 <template>
-  <form class="text-center">
+  <form class="form-signin text-center needs-validation" novalidate>
     <img src="@/assets/images/logo.png" alt="logo" width="200" height="150" />
     <h1 class="h3 mb-3 fw-normal">Login</h1>
-    <div class="alert alert-danger" role="alert" v-if="incorrectLogin">
-      Seu login ou senha estão incorretos!
+    <div class="alert alert-danger" role="alert" v-if="incorrect_login">
+      Login ou senha estão incorretos.
+    </div>
+    <div class="alert alert-danger" role="alert" v-if="no_values">
+      Preencha todos os campos.
     </div>
     <div class="form-floating">
       <input
@@ -17,6 +20,7 @@
         id="floatingInput"
         placeholder="name@example.com"
         autocomplete="off"
+        required
       />
       <label for="floatingInput">Email</label>
     </div>
@@ -28,6 +32,7 @@
         id="floatingPassword"
         placeholder="Password"
         autocomplete="off"
+        required
       />
       <label for="floatingPassword">Senha</label>
     </div>
@@ -56,26 +61,50 @@
 
 <script>
 import axios from "axios";
+import HeaderComponent from "@/components/Header.vue";
 
 export default {
+  components: { HeaderComponent },
   data() {
     return {
       data: {
         email: null,
         password: null,
       },
-      incorrectLogin: false,
+      incorrect_login: false,
+      no_values: false,
     };
   },
   methods: {
+    validate() {
+      this.incorrect_login = false;
+      this.no_values = false;
+
+      var forms = document.querySelectorAll(".needs-validation");
+      forms.forEach((form) => form.classList.add("was-validated"));
+      
+      if (!this.data.email || !this.data.password) {
+        this.no_values = true;
+        return true;
+      }
+    },
     login() {
+      if(this.validate()) return;
+
       axios
-        .post(import.meta.env.VITE_BASE_API + "/user/login", this.data)
-        .then((resp) => {
-          this.$router.push("/dashboard");
+        .post(import.meta.env.VITE_BASE_API + "/users/login", this.data)
+        .then(({data}) => {
+          // save my values on session
+          sessionStorage.setItem("id_user", data.data[0].ID)
+          sessionStorage.setItem("name_user", data.data[0].name)
+          sessionStorage.setItem("email_user", data.data[0].email)
+          sessionStorage.setItem("avatar_user", data.data[0].avatar)
+          sessionStorage.setItem("level_user", data.data[0].level)
+          // Go to Home Page
+          this.$router.push("/home");
         })
         .catch((error) => {
-          this.incorrectLogin = true;
+          this.incorrect_login = true;
         });
     },
   },

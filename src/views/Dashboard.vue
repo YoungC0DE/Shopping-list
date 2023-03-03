@@ -36,3 +36,30 @@
     </tbody>
   </table>
 </template>
+
+<script lang="js">
+import axios from "axios";
+
+export default {
+  methods: {
+    loadProductsOnTable() {
+      const data = {
+        headers: {'Content-Type': 'application/json'},
+        data: {
+          id_user: sessionStorage.getItem('id_user')
+        }
+      }
+      axios.get(import.meta.env.VITE_BASE_API + "/products/list", data)
+      .then((resp) => {
+        console.log(resp)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
+  },
+  mounted() {
+    this.loadProductsOnTable();
+  }
+};
+</script>
