@@ -1,0 +1,10 @@
+.responsive-view {
+  width: 50%;
+  height: 80vh;
+}
+
+@media (max-width: 600px) {
+  .responsive-view {
+    width: 95%;
+  }
+}

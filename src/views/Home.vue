@@ -1,3 +1,7 @@
+<style scoped>
+@import "@/assets/Home.css";
+</style>
+
 <template>
   <main
     class="d-flex flex-column justify-content-evenly align-items-center w-100 h-100"
@@ -6,13 +10,13 @@
       <HeaderComponent />
     </div>
 
-    <div class="w-50 h-75">
+    <div class="responsive-view">
       <router-view></router-view>
     </div>
   </main>
 </template>
 
-<script lang="js">
+<script>
 import HeaderComponent from "@/components/Header.vue";
 
 export default {

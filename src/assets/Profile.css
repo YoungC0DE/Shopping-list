@@ -1,0 +1,19 @@
+input {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.img-thumbnail {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  background-size: contain;
+  background-image: url("./images/default_profile.jpg");
+}
+
+.form-profile {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}

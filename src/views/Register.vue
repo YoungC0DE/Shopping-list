@@ -1,47 +1,29 @@
-<style>
-@import "@/assets/Profile.css";
+<style scoped>
+@import "@/assets/Login.css";
 </style>
 
 <template>
-  <img
-    :src="data.avatar"
-    class="img-thumbnail rounded mx-auto d-block rounded-circle p-0 mb-5"
-  />
-
-  <form
-    class="form-signin text-center needs-validation w-50 mx-auto"
-    novalidate
-  >
-    <h1 class="h3 mb-3 fw-normal">Dados de perfil</h1>
-    <div class="alert alert-warning" role="alert" v-if="password_not_match">
-      Informe sua senha antes de alterar os dados.
+  <form class="form-signin text-center needs-validation" novalidate>
+    <img src="@/assets/images/logo.png" alt="logo" width="200" height="150" />
+    <h1 class="h3 mb-3 fw-normal">Registrar conta</h1>
+    <div class="alert alert-danger" role="alert" v-if="no_values">
+      Preencha todos os campos.
     </div>
     <div class="form-floating">
       <input
         type="text"
         class="form-control shadow-none rounded-top rounded-bottom-0 border-bottom-0"
-        v-model="data.avatar"
-        id="name"
-        autocomplete="off"
-        required
-      />
-      <label for="name">URL imagem de perfil</label>
-    </div>
-    <div class="form-floating">
-      <input
-        type="text"
-        class="form-control shadow-none rounded-0 border-bottom-0"
         v-model="data.name"
         id="name"
         autocomplete="off"
         required
       />
-      <label for="name">Nome</label>
+      <label for="name">Nome completo</label>
     </div>
     <div class="form-floating">
       <input
-        type="text"
-        class="form-control shadow-none rounded-0 border-bottom-0"
+        type="email"
+        class="form-control shadow-none rounded-0"
         v-model="data.email"
         id="email"
         autocomplete="off"
@@ -60,44 +42,54 @@
       />
       <label for="password">Senha</label>
     </div>
-    <div class="form-floating mb-4">
+    <div class="form-floating">
       <input
         type="password"
-        class="form-control shadow-none border-top-0 rounded-top-0"
+        class="form-control shadow-none border-top-0"
         v-model="password_confirm"
-        id="value"
+        id="password_confirm"
         autocomplete="off"
         required
       />
-      <label for="value">Confirme sua senha</label>
+      <label for="password_confirm">Condfirme a Senha</label>
+    </div>
+    <div class="alert alert-warning" role="alert" v-show="password_not_match">
+      As senhas não coincidem!
     </div>
     <button
-      class="w-100 btn btn-lg btn-primary mb-2"
+      class="w-100 btn btn-lg btn-primary mb-3"
       type="submit"
-      v-on:click.prevent="saveChanges()"
+      v-on:click.prevent="register()"
     >
-      Salvar alterações
+      Criar conta
     </button>
+    <router-link
+      to="/"
+      class="text-decoration-none btn btn-outline-secondary w-100"
+    >
+      Login
+    </router-link>
+    <p class="mt-4 text-muted">&copy; youngcode.ltda</p>
   </form>
 </template>
 
 <script>
-import HeaderComponent from "@/components/Header.vue";
 import axios from "axios";
+import HeaderComponent from "@/components/Header.vue";
+import Swal from "sweetalert2";
 
 export default {
   components: { HeaderComponent },
   data() {
     return {
       data: {
-        avatar: "",
         name: "",
         email: "",
         password: "",
       },
-      no_values: false,
-      password_not_match: false,
       password_confirm: "",
+      password_not_match: false,
+      no_values: false,
     };
   },
   methods: {
@@ -113,34 +105,26 @@ export default {
         return true;
       }
     },
-    loadProfileData() {
-      this.data.avatar = sessionStorage.getItem("avatar_user");
-      this.data.name = sessionStorage.getItem("name_user");
-      this.data.email = sessionStorage.getItem("email_user");
-    },
-    saveChanges() {
+    register() {
       if (this.validate()) return;
 
       axios
-        .put(import.meta.env.VITE_BASE_API + "/users/edit", this.data)
+        .post(import.meta.env.VITE_BASE_API + "/users/register", this.data)
         .then((resp) => {
-          console.log(resp);
+            console.log(resp)
           // Go to Home Page
           Swal.fire({
             icon: "success",
-            title: "Dados alterados",
-            text: "Dados alterados com sucesso.",
+            title: "Conta criada",
+            text: "Conta criada com sucesso. Faça o login para prosseguir.",
             showConfirmButton: true,
           }).then((confirm) => {
             if (confirm) {
-              this.$router.push("/home");
+              this.$router.push("/");
             }
           });
         });
     },
-  },
-  mounted() {
-    this.loadProfileData();
   },
 };
 </script>

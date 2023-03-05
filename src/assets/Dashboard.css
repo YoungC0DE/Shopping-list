@@ -1,0 +1,15 @@
+.responsive-btn button {
+  --bs-btn-padding-y: 0.25rem;
+  --bs-btn-padding-x: 0.5rem;
+  --bs-btn-font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .mobile-table {
+    overflow: auto;
+  }
+  .mobile-table table {
+    font-size: 80%;
+    width: 500px;
+  }
+}
