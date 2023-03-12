@@ -4,7 +4,7 @@
 
 <template>
   <main
-    class="d-flex flex-column justify-content-evenly align-items-center w-100 h-100"
+    class="d-flex flex-column justify-content-evenly align-items-center w-100 vh-100"
   >
     <div class="">
       <HeaderComponent />

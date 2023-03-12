@@ -5,6 +5,6 @@
 
 @media (max-width: 600px) {
   .responsive-view {
-    width: 95%;
+    width: 95% !important;
   }
 }

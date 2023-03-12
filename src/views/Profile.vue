@@ -9,12 +9,12 @@
   />
 
   <form
-    class="form-signin text-center needs-validation w-50 mx-auto"
+    class="form-signin text-center needs-validation w-50 mx-auto responsive-view"
     novalidate
   >
-    <h1 class="h3 mb-3 fw-normal">Dados de perfil</h1>
+    <h1 class="h3 mb-3 fw-normal">Profile</h1>
     <div class="alert alert-warning" role="alert" v-if="password_not_match">
-      Informe sua senha antes de alterar os dados.
+      Enter your password before changing data.
     </div>
     <div class="form-floating">
       <input
@@ -25,18 +25,18 @@
         autocomplete="off"
         required
       />
-      <label for="name">URL imagem de perfil</label>
+      <label for="name">Url Image</label>
     </div>
     <div class="form-floating">
       <input
         type="text"
         class="form-control shadow-none rounded-0 border-bottom-0"
         v-model="data.name"
-        id="name"
+        id="url"
         autocomplete="off"
         required
       />
-      <label for="name">Nome</label>
+      <label for="url">Name</label>
     </div>
     <div class="form-floating">
       <input
@@ -58,7 +58,7 @@
         autocomplete="off"
         required
       />
-      <label for="password">Senha</label>
+      <label for="password">Password</label>
     </div>
     <div class="form-floating mb-4">
       <input
@@ -69,14 +69,14 @@
         autocomplete="off"
         required
       />
-      <label for="value">Confirme sua senha</label>
+      <label for="value">Confirm your password</label>
     </div>
     <button
       class="w-100 btn btn-lg btn-primary mb-2"
       type="submit"
       v-on:click.prevent="saveChanges()"
     >
-      Salvar alterações
+      Save changes
     </button>
   </form>
 </template>
@@ -84,12 +84,15 @@
 <script>
 import HeaderComponent from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { useUserStore } from "@/stores/user";
 
 export default {
   components: { HeaderComponent },
   data() {
     return {
       data: {
+        user_id: null,
         avatar: "",
         name: "",
         email: "",
@@ -100,7 +103,19 @@ export default {
       password_confirm: "",
     };
   },
+  setup() {
+    const store = useUserStore();
+    return {
+      store,
+    };
+  },
   methods: {
+    renderData() {
+      this.data.user_id = this.store.user_id;
+      this.data.avatar = this.store.avatar;
+      this.data.name = this.store.name;
+      this.data.email = this.store.email;
+    },
     validate() {
       var forms = document.querySelectorAll(".needs-validation");
       forms.forEach((form) => form.classList.add("was-validated"));
@@ -113,23 +128,17 @@ export default {
         return true;
       }
     },
-    loadProfileData() {
-      this.data.avatar = sessionStorage.getItem("avatar_user");
-      this.data.name = sessionStorage.getItem("name_user");
-      this.data.email = sessionStorage.getItem("email_user");
-    },
     saveChanges() {
       if (this.validate()) return;
-
+      let urlData = `user_id=${this.data.user_id}&avatar=${this.data.avatar}&name=${this.data.name}&email=${this.data.email}&password=${this.data.password}`;
       axios
-        .put(import.meta.env.VITE_BASE_API + "/users/edit", this.data)
+        .put(import.meta.env.VITE_BASE_API + "/users/edit?" + urlData)
         .then((resp) => {
-          console.log(resp);
           // Go to Home Page
           Swal.fire({
             icon: "success",
-            title: "Dados alterados",
-            text: "Dados alterados com sucesso.",
+            title: "Changed data",
+            text: "Successfully changed data.",
             showConfirmButton: true,
           }).then((confirm) => {
             if (confirm) {
@@ -140,7 +149,7 @@ export default {
     },
   },
   mounted() {
-    this.loadProfileData();
+    this.renderData();
   },
 };
 </script>

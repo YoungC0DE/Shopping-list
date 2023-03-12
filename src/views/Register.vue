@@ -5,9 +5,9 @@
 <template>
   <form class="form-signin text-center needs-validation" novalidate>
     <img src="@/assets/images/logo.png" alt="logo" width="200" height="150" />
-    <h1 class="h3 mb-3 fw-normal">Registrar conta</h1>
+    <h1 class="h3 mb-3 fw-normal">New Account</h1>
     <div class="alert alert-danger" role="alert" v-if="no_values">
-      Preencha todos os campos.
+      Fill in all fields.
     </div>
     <div class="form-floating">
       <input
@@ -18,7 +18,7 @@
         autocomplete="off"
         required
       />
-      <label for="name">Nome completo</label>
+      <label for="name">Full name</label>
     </div>
     <div class="form-floating">
       <input
@@ -40,7 +40,7 @@
         autocomplete="off"
         required
       />
-      <label for="password">Senha</label>
+      <label for="password">Password</label>
     </div>
     <div class="form-floating">
       <input
@@ -51,17 +51,17 @@
         autocomplete="off"
         required
       />
-      <label for="password_confirm">Condfirme a Senha</label>
+      <label for="password_confirm">Confirm your password</label>
     </div>
     <div class="alert alert-warning" role="alert" v-show="password_not_match">
-      As senhas não coincidem!
+      The passwords not match
     </div>
     <button
       class="w-100 btn btn-lg btn-primary mb-3"
       type="submit"
       v-on:click.prevent="register()"
     >
-      Criar conta
+      Create Account
     </button>
     <router-link
       to="/"
@@ -73,7 +73,7 @@
   </form>
 </template>
 
-<script>
+<script lang="js">
 import axios from "axios";
 import HeaderComponent from "@/components/Header.vue";
 import Swal from "sweetalert2";
@@ -108,15 +108,16 @@ export default {
     register() {
       if (this.validate()) return;
 
+      let urlData = `name=${this.data.name}&email=${this.data.email}&password=${this.data.password}`;
       axios
-        .post(import.meta.env.VITE_BASE_API + "/users/register", this.data)
+        .post(import.meta.env.VITE_BASE_API + "/users/register?" + urlData)
         .then((resp) => {
-            console.log(resp)
+          console.log(resp);
           // Go to Home Page
           Swal.fire({
             icon: "success",
-            title: "Conta criada",
-            text: "Conta criada com sucesso. Faça o login para prosseguir.",
+            title: "Created Account",
+            text: "Account successfully created. Please login to proceed.",
             showConfirmButton: true,
           }).then((confirm) => {
             if (confirm) {

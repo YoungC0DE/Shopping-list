@@ -24,6 +24,10 @@
         {{ item.label }}
       </span>
     </li>
+    <button type="button" class="btn btn-danger rounded-5" v-on:click="exit()">
+      Exit
+      <i class="bi bi-box-arrow-right"></i>
+    </button>
   </ul>
 </template>
 
@@ -34,9 +38,8 @@ export default {
   data() {
     return {
       menu_itens: [
-        { label: "Perfil", name: "Profile" },
-        { label: "Minha lista", name: "Dashboard" },
-        { label: "Novo Item", name: "NewItem" },
+        { label: "Profile", name: "Profile" },
+        { label: "My list", name: "Dashboard" },
         { label: "Contact", name: "Contact" },
       ],
       current_page: this.$route.name,
@@ -46,6 +49,10 @@ export default {
     changeRoute(value) {
       this.$router.push({ name: value });
       this.current_page = value;
+    },
+    exit() {
+      sessionStorage.clear();
+      this.$router.push({ name: "Login" });
     },
   },
 };

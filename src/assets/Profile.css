@@ -11,9 +11,8 @@ input {
   background-image: url("./images/default_profile.jpg");
 }
 
-.form-profile {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
+@media (max-width: 600px) {
+  .responsive-view {
+    width: 95% !important;
+  }
 }
