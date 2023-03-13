@@ -134,16 +134,17 @@ export default {
       axios
         .put(import.meta.env.VITE_BASE_API + "/users/edit?" + urlData)
         .then((resp) => {
+          this.store.user_id = this.data.user_id;
+          this.store.avatar = this.data.avatar;
+          this.store.name = this.data.name;
+          this.store.email = this.data.email;
           // Go to Home Page
           Swal.fire({
             icon: "success",
             title: "Changed data",
             text: "Successfully changed data.",
-            showConfirmButton: true,
           }).then((confirm) => {
-            if (confirm) {
-              this.$router.push("/home");
-            }
+            this.$router.push({ name: "Dashboard" });
           });
         });
     },

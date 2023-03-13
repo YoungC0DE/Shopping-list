@@ -30,9 +30,9 @@ const router = createRouter({
           component: () => import("../views/Profile.vue"),
         },
         {
-          path: "/home/contact",
-          name: "Contact",
-          component: () => import("../views/Contact.vue"),
+          path: "/home/settings",
+          name: "Settings",
+          component: () => import("../views/Settings.vue"),
         },
       ],
     },

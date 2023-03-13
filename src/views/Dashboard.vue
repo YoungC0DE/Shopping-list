@@ -93,25 +93,51 @@
       </div>
     </div>
 
-    <button type="button" class="btn btn-info" @click="loadProductsOnTable">
-      Refresh
-      <i class="bi bi-arrow-clockwise"></i>
-    </button>
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#modalNewItem"
-      @click="
-        () => {
-          modalInstance = 'Register';
-        }
-      "
-    >
-      Add item
-      <i class="bi bi-plus-lg"></i>
-    </button>
+    <nav class="navbar bg-body-tertiary w-100">
+      <div class="container-fluid">
+        <button type="button" class="btn btn-info" @click="loadProductsOnTable">
+          {{ deviceWidth > 600 ? "Refresh" : "" }}
+          <i class="bi bi-arrow-clockwise"></i>
+        </button>
+        <form
+          class="d-flex"
+          :class="deviceWidth > 600 ? 'w-50' : 'w-75'"
+          role="search"
+        >
+          <input
+            class="form-control me-2 shadow-none p-1 ps-2 pe-2"
+            type="search"
+            v-model="search"
+            placeholder="Item"
+            aria-label="Item"
+          />
+          <button
+            class="btn btn-outline-success shadow-none"
+            v-on:click="findProductByName"
+            title="Search"
+            type="button"
+          >
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#modalNewItem"
+          @click="
+            () => {
+              modalInstance = 'Register';
+            }
+          "
+        >
+          {{ deviceWidth > 600 ? "New Item" : "" }}
+          <i class="bi bi-plus-lg"></i>
+        </button>
+      </div>
+    </nav>
   </div>
+
   <div class="mobile-table">
     <table
       class="table table-striped table-hover text-center table-bordered m-0 align-middle"
@@ -141,7 +167,7 @@
                 --bs-btn-padding-x: 0.5rem;
                 --bs-btn-font-size: 0.75rem;
               "
-              title="Editar"
+              title="Edit"
               data-bs-toggle="modal"
               data-bs-target="#modalNewItem"
               v-on:click="openModalEdit(item)"
@@ -153,7 +179,7 @@
                 --bs-btn-padding-x: 0.5rem;
                 --bs-btn-font-size: 0.75rem;
               "
-              title="Deletar"
+              title="Delete"
               v-on:click="deleteItem(item.ID)"
             ></i>
           </td>
@@ -171,8 +197,10 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
+      deviceWidth: screen.width,
       modalInstance: "",
       tableData: {},
+      search: "",
       newItem: {
         prod_id: null,
         name: "",
@@ -195,20 +223,34 @@ export default {
       if (this.modalInstance == "Register") this.createNewItem();
     },
     deleteItem(id) {
-      let dataUrl = `user_id=${this.store.user_id}&prod_id=${id}`;
-      axios
-        .delete(import.meta.env.VITE_BASE_API + "/products/delete?" + dataUrl)
-        .then((resp) => {
-          Swal.fire({
-            icon: "success",
-            title: resp.data.message,
-            showConfirmButton: true,
-          });
-          this.loadProductsOnTable();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let dataUrl = `user_id=${this.store.user_id}&prod_id=${id}`;
+          axios
+            .delete(
+              import.meta.env.VITE_BASE_API + "/products/delete?" + dataUrl
+            )
+            .then((resp) => {
+              Swal.fire({
+                icon: "success",
+                title: resp.data.message,
+                showConfirmButton: true,
+              });
+              this.loadProductsOnTable();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      });
     },
     openModalEdit(data) {
       this.modalInstance = "Update";
@@ -261,6 +303,19 @@ export default {
         .get(
           import.meta.env.VITE_BASE_API +
             `/products/list&user_id=${this.store.user_id}`
+        )
+        .then(({ data }) => {
+          this.tableData = data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    findProductByName() {
+      axios
+        .get(
+          import.meta.env.VITE_BASE_API +
+            `/products/list&user_id=${this.store.user_id}&name=${this.search}`
         )
         .then(({ data }) => {
           this.tableData = data.data;

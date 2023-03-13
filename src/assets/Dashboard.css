@@ -4,9 +4,36 @@
   --bs-btn-font-size: 0.9rem;
 }
 
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #adadad #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #adadad;
+  border-radius: 8px;
+  border: 2px solid #ffffff;
+}
+
+.mobile-table {
+  max-height: 500px !important;
+  overflow: auto;
+}
+
 @media (max-width: 600px) {
   .mobile-table {
-    overflow: auto;
+    max-height: 300px !important;
   }
   .mobile-table table {
     font-size: 80%;

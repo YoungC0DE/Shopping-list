@@ -40,7 +40,7 @@ export default {
       menu_itens: [
         { label: "Profile", name: "Profile" },
         { label: "My list", name: "Dashboard" },
-        { label: "Contact", name: "Contact" },
+        { label: "Settings", name: "Settings" },
       ],
       current_page: this.$route.name,
     };
