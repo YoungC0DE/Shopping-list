@@ -52,6 +52,7 @@ export default {
     },
     exit() {
       sessionStorage.clear();
+      localStorage.clear();
       this.$router.push({ name: "Login" });
     },
   },

@@ -39,9 +39,11 @@
 
     <div class="checkbox mb-2 mt-2">
       <label>
-        <input type="checkbox" value="remember-me" /> Continuar logado
+        <input type="checkbox" value="remember-me" v-model="keepLogged" />
+        Continuar logado
       </label>
     </div>
+
     <button
       class="w-100 btn btn-lg btn-primary mb-3"
       type="submit"
@@ -74,6 +76,7 @@ export default {
       },
       incorrect_login: false,
       no_values: false,
+      keepLogged: false,
     };
   },
   setup() {
@@ -85,11 +88,13 @@ export default {
   },
   methods: {
     setData(data) {
-      this.store.user_id = data.data[0].ID;
-      this.store.name = data.data[0].name;
-      this.store.email = data.data[0].email;
-      this.store.avatar = data.data[0].avatar;
-      this.store.level = data.data[0].level;
+      this.store.$patch({
+        user_id: data.data[0].ID,
+        name: data.data[0].name,
+        email: data.data[0].email,
+        avatar: data.data[0].avatar,
+        level: data.data[0].level,
+      });
 
       sessionStorage.setItem("piniaState", btoa(JSON.stringify(this.store)));
     },
@@ -105,6 +110,18 @@ export default {
         return true;
       }
     },
+    wantKeepLogged() {
+      let criptedData = localStorage.getItem("kpl6ud");
+      if (!criptedData) return false;
+
+      let data = JSON.parse(atob(criptedData));
+      this.data = {
+        email: data.email,
+        password: data.password,
+      };
+
+      this.login();
+    },
     login() {
       if (this.validate()) return;
       let urlData = `email=${this.data.email}&password=${this.data.password}`;
@@ -115,13 +132,19 @@ export default {
           // save my values on store
           this.setData(data);
           // Go to Home Page
-          this.$router.push("/home");
+          if (this.keepLogged) {
+            localStorage.setItem("kpl6ud", btoa(JSON.stringify(this.data)));
+          }
+          this.$router.push({ name: "Dashboard" });
         })
         .catch((error) => {
           console.log(error);
           this.incorrect_login = true;
         });
     },
+  },
+  mounted() {
+    this.wantKeepLogged();
   },
 };
 </script>

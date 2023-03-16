@@ -144,21 +144,21 @@
     >
       <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Amount</th>
-          <th scope="col">Metric</th>
-          <th scope="col">Value</th>
-          <th scope="col">Action</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Metric</th>
+          <th>Value</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in tableData" :key="index">
-          <th scope="row">{{ item.ID }}</th>
+          <td>{{ item.ID }}</td>
           <td>{{ item.name }}</td>
-          <td>{{ item.amount }}</td>
+          <td>{{ item.amount }}x</td>
           <td>{{ item.metric }}</td>
-          <td>{{ item.value }}</td>
+          <td>$ {{ item.value }}</td>
           <td>
             <i
               class="bi bi-pencil-square btn btn-warning btn-sm me-3"
@@ -187,6 +187,12 @@
       </tbody>
     </table>
   </div>
+
+  <hr>
+  <div class="d-flex flex-row justify-content-between">
+    <b>Total</b> 
+    <b>$ {{ products_total }}</b>
+  </div>
 </template>
 
 <script>
@@ -208,6 +214,7 @@ export default {
         metric: "",
         value: "",
       },
+      products_total: 0,
       no_values: false,
     };
   },
@@ -311,6 +318,19 @@ export default {
           console.log(error);
         });
     },
+    loadTotalProducts() {
+      axios
+        .get(
+          import.meta.env.VITE_BASE_API +
+            `/products/total&user_id=${this.store.user_id}`
+        )
+        .then(({ data }) => {
+          this.products_total = data.data[0].total;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     findProductByName() {
       axios
         .get(
@@ -343,6 +363,7 @@ export default {
     },
   },
   mounted() {
+    this.loadTotalProducts();
     this.loadProductsOnTable();
   },
 };
