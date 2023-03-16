@@ -24,8 +24,12 @@
         {{ item.label }}
       </span>
     </li>
-    <button type="button" class="btn btn-danger rounded-5" v-on:click="exit()">
-      Exit
+    <button
+      type="button"
+      class="btn btn-danger rounded-5"
+      v-on:click="logout()"
+    >
+      Logout
       <i class="bi bi-box-arrow-right"></i>
     </button>
   </ul>
@@ -50,7 +54,7 @@ export default {
       this.$router.push({ name: value });
       this.current_page = value;
     },
-    exit() {
+    logout() {
       sessionStorage.clear();
       localStorage.clear();
       this.$router.push({ name: "Login" });

@@ -88,15 +88,18 @@ export default {
   },
   methods: {
     setData(data) {
-      this.store.$patch({
+      let NewData = {
         user_id: data.data[0].ID,
         name: data.data[0].name,
         email: data.data[0].email,
         avatar: data.data[0].avatar,
         level: data.data[0].level,
+      };
+      this.store.$patch({
+        NewData,
       });
 
-      sessionStorage.setItem("piniaState", btoa(JSON.stringify(Object(this.store))));
+      sessionStorage.setItem("piniaState", btoa(JSON.stringify(NewData)));
     },
     validate() {
       this.incorrect_login = false;

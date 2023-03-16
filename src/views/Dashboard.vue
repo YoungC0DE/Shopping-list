@@ -188,9 +188,9 @@
     </table>
   </div>
 
-  <hr>
+  <hr />
   <div class="d-flex flex-row justify-content-between">
-    <b>Total</b> 
+    <b>Total</b>
     <b>$ {{ products_total }}</b>
   </div>
 </template>
@@ -282,6 +282,7 @@ export default {
             showConfirmButton: true,
           }).then((confirm) => {
             this.loadProductsOnTable();
+            console.log(confirm);
           });
         })
         .catch((error) => {

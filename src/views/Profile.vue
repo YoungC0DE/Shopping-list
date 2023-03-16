@@ -133,7 +133,7 @@ export default {
       let urlData = `user_id=${this.data.user_id}&avatar=${this.data.avatar}&name=${this.data.name}&email=${this.data.email}&password=${this.data.password}`;
       axios
         .put(import.meta.env.VITE_BASE_API + "/users/edit?" + urlData)
-        .then((resp) => {
+        .then(() => {
           this.store.user_id = this.data.user_id;
           this.store.avatar = this.data.avatar;
           this.store.name = this.data.name;
@@ -143,7 +143,7 @@ export default {
             icon: "success",
             title: "Changed data",
             text: "Successfully changed data.",
-          }).then((confirm) => {
+          }).then(() => {
             this.$router.push({ name: "Dashboard" });
           });
         });

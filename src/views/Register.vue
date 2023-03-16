@@ -111,18 +111,15 @@ export default {
       let urlData = `name=${this.data.name}&email=${this.data.email}&password=${this.data.password}`;
       axios
         .post(import.meta.env.VITE_BASE_API + "/users/register?" + urlData)
-        .then((resp) => {
-          console.log(resp);
+        .then(() => {
           // Go to Home Page
           Swal.fire({
             icon: "success",
             title: "Created Account",
             text: "Account successfully created. Please login to proceed.",
             showConfirmButton: true,
-          }).then((confirm) => {
-            if (confirm) {
+          }).then(() => {
               this.$router.push("/");
-            }
           });
         });
     },

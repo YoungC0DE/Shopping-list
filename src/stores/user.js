@@ -4,9 +4,9 @@ export const useUserStore = defineStore("user", {
   // state
   state: () => {
     let encriptedData = sessionStorage.getItem("piniaState");
-    var data = '';
+    var data = "";
     if (encriptedData) {
-      data = JSON.parse(atob(encriptedData, 'base64'));
+      data = JSON.parse(atob(encriptedData, "base64"));
     }
     return {
       user_id: data.user_id || null,
