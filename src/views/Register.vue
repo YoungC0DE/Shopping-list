@@ -121,7 +121,9 @@ export default {
           }).then(() => {
               this.$router.push("/");
           });
-        });
+        }).catch((error) => {
+          this.$toast.error(error);
+        })
     },
   },
 };

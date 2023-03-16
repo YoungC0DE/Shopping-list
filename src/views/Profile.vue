@@ -146,7 +146,9 @@ export default {
           }).then(() => {
             this.$router.push({ name: "Dashboard" });
           });
-        });
+        }).catch((error) => {
+          this.$toast.error(error);
+        })
     },
   },
   mounted() {

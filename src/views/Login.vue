@@ -47,7 +47,7 @@
     <button
       class="w-100 btn btn-lg btn-primary mb-3"
       type="submit"
-      v-on:click.prevent="login()"
+      v-on:click.prevent="login"
     >
       Logar
     </button>
@@ -88,18 +88,21 @@ export default {
   },
   methods: {
     setData(data) {
-      let NewData = {
+      this.store.$state = {
         user_id: data.data[0].ID,
         name: data.data[0].name,
         email: data.data[0].email,
         avatar: data.data[0].avatar,
         level: data.data[0].level,
       };
-      this.store.$patch({
-        NewData,
-      });
 
-      sessionStorage.setItem("piniaState", btoa(JSON.stringify(NewData)));
+      sessionStorage.setItem("piniaState", btoa(JSON.stringify({
+        user_id: data.data[0].ID,
+        name: data.data[0].name,
+        email: data.data[0].email,
+        avatar: data.data[0].avatar,
+        level: data.data[0].level,
+      })));
     },
     validate() {
       this.incorrect_login = false;
@@ -140,11 +143,11 @@ export default {
           }
           this.$router.push({ name: "Dashboard" });
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
           this.incorrect_login = true;
         });
     },
+
   },
   mounted() {
     this.wantKeepLogged();

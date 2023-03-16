@@ -254,7 +254,7 @@ export default {
               this.loadProductsOnTable();
             })
             .catch((error) => {
-              console.log(error);
+              this.$toast.error(error);
             });
         }
       });
@@ -286,7 +286,7 @@ export default {
           });
         })
         .catch((error) => {
-          console.log(error);
+          this.$toast.error(error);
         });
     },
     validate() {
@@ -313,23 +313,29 @@ export default {
             `/products/list&user_id=${this.store.user_id}`
         )
         .then(({ data }) => {
+          this.$toast.open({
+            message: 'Something went wrong!',
+            type: 'success',
+            position: 'top-right'
+            // all of other options may go here
+          });
           this.tableData = data.data;
         })
         .catch((error) => {
-          console.log(error);
+          this.$toast.error(error);
         });
     },
     loadTotalProducts() {
       axios
         .get(
           import.meta.env.VITE_BASE_API +
-            `/products/total&user_id=${this.store.user_id}`
+            `/products/total?&user_id=${this.store.user_id}`
         )
         .then(({ data }) => {
           this.products_total = data.data[0].total;
         })
         .catch((error) => {
-          console.log(error);
+          this.$toast.error(error)
         });
     },
     findProductByName() {
@@ -342,7 +348,7 @@ export default {
           this.tableData = data.data;
         })
         .catch((error) => {
-          console.log(error);
+          this.$toast.error(error);
         });
     },
     createNewItem() {
@@ -359,7 +365,7 @@ export default {
           this.loadProductsOnTable();
         })
         .catch((error) => {
-          console.log(error);
+          this.$toast.error(error);
         });
     },
   },
