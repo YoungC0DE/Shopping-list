@@ -96,7 +96,7 @@ export default {
         level: data.data[0].level,
       });
 
-      sessionStorage.setItem("piniaState", btoa(JSON.stringify(this.store)));
+      sessionStorage.setItem("piniaState", btoa(JSON.stringify(Object(this.store))));
     },
     validate() {
       this.incorrect_login = false;
