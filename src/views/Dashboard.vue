@@ -313,12 +313,6 @@ export default {
             `/products/list&user_id=${this.store.user_id}`
         )
         .then(({ data }) => {
-          this.$toast.open({
-            message: 'Something went wrong!',
-            type: 'success',
-            position: 'top-right'
-            // all of other options may go here
-          });
           this.tableData = data.data;
         })
         .catch((error) => {
