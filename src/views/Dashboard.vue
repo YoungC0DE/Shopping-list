@@ -60,7 +60,7 @@
               </div>
               <div class="form-floating">
                 <input
-                  type="number"
+                  type="text"
                   class="form-control shadow-none rounded-top-0"
                   v-model="newItem.value"
                   id="value"
@@ -144,7 +144,7 @@
     >
       <thead>
         <tr>
-          <th>ID</th>
+          <th>#</th>
           <th>Name</th>
           <th>Amount</th>
           <th>Metric</th>
