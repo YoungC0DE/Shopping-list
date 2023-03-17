@@ -62,7 +62,7 @@
                 <input
                   type="number"
                   class="form-control shadow-none rounded-top-0"
-                  v-model.number="newItem.value"
+                  v-model="newItem.value"
                   id="value"
                   placeholder="Password"
                   autocomplete="off"
