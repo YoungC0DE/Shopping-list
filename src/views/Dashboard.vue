@@ -154,7 +154,7 @@
       </thead>
       <tbody>
         <tr v-for="(item, index) in tableData" :key="index">
-          <td>{{ index }}</td>
+          <td>{{ index+1 }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.amount }}x</td>
           <td>{{ item.metric }}</td>
