@@ -60,9 +60,9 @@
               </div>
               <div class="form-floating">
                 <input
-                  type="text"
+                  type="number"
                   class="form-control shadow-none rounded-top-0"
-                  v-model="newItem.value"
+                  v-model.number="newItem.value"
                   id="value"
                   placeholder="Password"
                   autocomplete="off"
@@ -154,7 +154,7 @@
       </thead>
       <tbody>
         <tr v-for="(item, index) in tableData" :key="index">
-          <td>{{ item.ID }}</td>
+          <td>{{ index }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.amount }}x</td>
           <td>{{ item.metric }}</td>
@@ -340,6 +340,7 @@ export default {
         )
         .then(({ data }) => {
           this.tableData = data.data;
+          this.loadTotalProducts();
         })
         .catch((error) => {
           this.$toast.error(error);
