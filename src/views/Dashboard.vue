@@ -314,6 +314,7 @@ export default {
         )
         .then(({ data }) => {
           this.tableData = data.data;
+          this.loadTotalProducts();
         })
         .catch((error) => {
           this.$toast.error(error);
@@ -340,7 +341,6 @@ export default {
         )
         .then(({ data }) => {
           this.tableData = data.data;
-          this.loadTotalProducts();
         })
         .catch((error) => {
           this.$toast.error(error);
