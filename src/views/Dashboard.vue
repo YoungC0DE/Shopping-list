@@ -248,7 +248,7 @@ export default {
             .then((resp) => {
               Swal.fire({
                 icon: "success",
-                title: resp.data.message,
+                title: resp.data.message || 'product was deleted!',
                 showConfirmButton: true,
               });
               this.loadProductsOnTable();
@@ -278,7 +278,7 @@ export default {
         .then((resp) => {
           Swal.fire({
             icon: "success",
-            title: resp.data.message,
+            title: resp.data.message || 'product was modified!',
             showConfirmButton: true,
           }).then((confirm) => {
             this.loadProductsOnTable();
