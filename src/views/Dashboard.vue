@@ -327,7 +327,7 @@ export default {
             `/products/total?&user_id=${this.store.user_id}`
         )
         .then(({ data }) => {
-          this.products_total = data.data[0].total;
+          this.products_total = data.data;
         })
         .catch((error) => {
           this.$toast.error(error)
