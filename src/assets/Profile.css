@@ -1,18 +1,5 @@
-input {
-  box-shadow: none !important;
-  outline: none !important;
-}
-
 .img-thumbnail {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  background-size: contain;
-  background-image: url("./images/default_profile.jpg");
-}
-
-@media (max-width: 600px) {
-  .responsive-view {
-    width: 95% !important;
-  }
+    object-fit: cover;
+    height: 200px;
+    width: 200px;
 }

@@ -3,82 +3,86 @@
 </style>
 
 <template>
-  <img
-    :src="data.avatar"
-    class="img-thumbnail rounded mx-auto d-block rounded-circle p-0 mb-5"
-  />
+  <div class="d-flex flex-column align-items-center">
+    <main class="w-75">
+      <img
+        :src="data.avatar"
+        class="img-thumbnail rounded mx-auto d-block rounded-circle p-0 mb-5"
+      />
 
-  <form
-    class="form-signin text-center needs-validation w-50 mx-auto responsive-view"
-    novalidate
-  >
-    <h1 class="h3 mb-3 fw-normal">Profile</h1>
-    <div class="alert alert-warning" role="alert" v-if="password_not_match">
-      Enter your password before changing data.
-    </div>
-    <div class="form-floating">
-      <input
-        type="text"
-        class="form-control shadow-none rounded-top rounded-bottom-0 border-bottom-0"
-        v-model="data.avatar"
-        id="name"
-        autocomplete="off"
-        required
-      />
-      <label for="name">Url Image</label>
-    </div>
-    <div class="form-floating">
-      <input
-        type="text"
-        class="form-control shadow-none rounded-0 border-bottom-0"
-        v-model="data.name"
-        id="url"
-        autocomplete="off"
-        required
-      />
-      <label for="url">Name</label>
-    </div>
-    <div class="form-floating">
-      <input
-        type="text"
-        class="form-control shadow-none rounded-0 border-bottom-0"
-        v-model="data.email"
-        id="email"
-        autocomplete="off"
-        required
-      />
-      <label for="email">Email</label>
-    </div>
-    <div class="form-floating">
-      <input
-        type="password"
-        class="form-control shadow-none m-0 rounded-0"
-        v-model="data.password"
-        id="password"
-        autocomplete="off"
-        required
-      />
-      <label for="password">Password</label>
-    </div>
-    <div class="form-floating mb-4">
-      <input
-        type="password"
-        class="form-control shadow-none border-top-0 rounded-top-0"
-        v-model="password_confirm"
-        id="value"
-        autocomplete="off"
-        required
-      />
-      <label for="value">Confirm your password</label>
-    </div>
-    <button
-      class="w-100 btn btn-lg btn-primary mb-2"
-      type="submit"
-      v-on:click.prevent="saveChanges()"
-    >
-      Save changes
-    </button>
-  </form>
+      <form
+        class="form-signin text-center needs-validation w-50 mx-auto responsive-view"
+        novalidate
+      >
+        <h1 class="h3 mb-3 fw-normal">Profile</h1>
+        <div class="alert alert-warning" role="alert" v-if="password_not_match">
+          Enter your password before changing data.
+        </div>
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control shadow-none rounded-top rounded-bottom-0 border-bottom-0"
+            v-model="data.avatar"
+            id="name"
+            autocomplete="off"
+            required
+          />
+          <label for="name">Url Image</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control shadow-none rounded-0 border-bottom-0"
+            v-model="data.name"
+            id="url"
+            autocomplete="off"
+            required
+          />
+          <label for="url">Name</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control shadow-none rounded-0 border-bottom-0"
+            v-model="data.email"
+            id="email"
+            autocomplete="off"
+            required
+          />
+          <label for="email">Email</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control shadow-none m-0 rounded-0"
+            v-model="data.password"
+            id="password"
+            autocomplete="off"
+            required
+          />
+          <label for="password">Password</label>
+        </div>
+        <div class="form-floating mb-4">
+          <input
+            type="password"
+            class="form-control shadow-none border-top-0 rounded-top-0"
+            v-model="password_confirm"
+            id="value"
+            autocomplete="off"
+            required
+          />
+          <label for="value">Confirm your password</label>
+        </div>
+        <button
+          class="w-100 btn btn-lg btn-primary mb-2"
+          type="submit"
+          v-on:click.prevent="saveChanges()"
+        >
+          Save changes
+        </button>
+      </form>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -146,9 +150,10 @@ export default {
           }).then(() => {
             this.$router.push({ name: "Dashboard" });
           });
-        }).catch((error) => {
-          this.$toast.error(error);
         })
+        .catch((error) => {
+          this.$toast.error(error);
+        });
     },
   },
   mounted() {

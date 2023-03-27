@@ -1,42 +1,39 @@
-.responsive-btn button {
-  --bs-btn-padding-y: 0.25rem;
-  --bs-btn-padding-x: 0.5rem;
-  --bs-btn-font-size: 0.9rem;
+.table-responsive {
+    width: 100%;
+    max-height: 500px;
+    overflow: auto;
+    overflow-y: overlay;
+}
+
+.area-table {
+  min-height: 600px;
+}
+
+thead > tr > th {
+    position: sticky;
+    top: -1px;
+    background-color: #373a44 !important;
+    border: none;
 }
 
 /* ===== Scrollbar CSS ===== */
-/* Firefox */
-* {
-  scrollbar-width: auto;
-  scrollbar-color: #adadad #ffffff;
-}
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 10px;
-}
-
-*::-webkit-scrollbar-track {
-  background: #ffffff;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #adadad;
-  border-radius: 8px;
-  border: 2px solid #ffffff;
-}
-
-.mobile-table {
-  max-height: 500px !important;
-  overflow: auto;
-}
-
-@media (max-width: 600px) {
-  .mobile-table {
-    max-height: 300px !important;
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #7e839a transparent;
   }
-  .mobile-table table {
-    font-size: 80%;
-    width: 500px;
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 6px;
   }
-}
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #9698a1;
+    border-radius: 8px;
+    border: -2px none transparent;
+  }

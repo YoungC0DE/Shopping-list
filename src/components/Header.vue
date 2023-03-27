@@ -1,38 +1,47 @@
+<style>
+.nav-masthead .nav-link {
+  color: rgba(255, 255, 255, 0.5);
+  border-bottom: 0.25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+
+.nav-masthead .nav-link + .nav-link {
+  margin-left: 1rem;
+}
+
+.nav-masthead .active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+</style>
+
 <template>
-  <ul
-    class="nav nav-pills nav-fill gap-2 p-1 small rounded-5 shadow-sm border border-1"
-    id="pillNav2"
-    role="tablist"
-    style="
-      --bs-nav-link-color: var(--bs-secondary);
-      --bs-nav-pills-link-active-color: var(--bs-white);
-      --bs-nav-pills-link-active-bg: var(--bs-secondary);
-    "
-  >
-    <li
-      class="nav-item"
-      role="presentation"
-      v-for="(item, index) in menu_itens"
-      :key="index"
-      v-on:click="changeRoute(item.name)"
-    >
-      <span
-        class="nav-link rounded-5 cursor-pointer"
-        role="button"
-        :class="item.name == current_page ? ' active' : ''"
-      >
-        {{ item.label }}
-      </span>
-    </li>
-    <button
-      type="button"
-      class="btn btn-danger rounded-5"
-      v-on:click="logout()"
-    >
-      Logout
-      <i class="bi bi-box-arrow-right"></i>
-    </button>
-  </ul>
+  <header class="p-5 pt-3 pb-0">
+    <div>
+      <h3 class="float-md-start mb-0">ShoppingList</h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <router-link
+          class="nav-link fw-bold text-secondary"
+          :class="current_page == item.name ? 'active' : ''"
+          aria-current="page"
+          v-on:click="changeHeader(item.name)"
+          :to="item.name"
+          v-for="(item, index) in menu_itens"
+          :key="index"
+        >
+          {{ item.label }}
+        </router-link>
+        <a class="nav-link fw-bold btn btn-danger text-white" v-on:click="logout()">
+          Logout
+          <i class="bi bi-box-arrow-right"></i>
+        </a>
+      </nav>
+    </div>
+  </header>
 </template>
 
 <script>
@@ -44,14 +53,12 @@ export default {
       menu_itens: [
         { label: "Profile", name: "Profile" },
         { label: "My list", name: "Dashboard" },
-        { label: "Settings", name: "Settings" },
       ],
       current_page: this.$route.name,
     };
   },
   methods: {
-    changeRoute(value) {
-      this.$router.push({ name: value });
+    changeHeader(value) {
       this.current_page = value;
     },
     logout() {

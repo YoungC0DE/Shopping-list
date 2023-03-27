@@ -3,96 +3,99 @@
 </style>
 
 <template>
-  <div class="d-flex flex-row justify-content-between mb-1 responsive-btn">
-    <!-- modal -->
-    <div class="modal fade centered" tabindex="-1" id="modalNewItem">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ modalInstance }} item</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form class="form-signin text-center needs-validation" novalidate>
-              <div class="alert alert-danger" role="alert" v-if="no_values">
-                Fill in all fields.
-              </div>
-              <div class="form-floating">
-                <input
-                  type="text"
-                  class="form-control shadow-none rounded-bottom-0 border-bottom-0"
-                  v-model="newItem.name"
-                  id="name"
-                  placeholder="name@example.com"
-                  autocomplete="off"
-                  required
-                />
-                <label for="name">Name</label>
-              </div>
-              <div class="form-floating">
-                <input
-                  type="number"
-                  class="form-control shadow-none rounded-0 border-bottom-0"
-                  v-model="newItem.amount"
-                  id="amount"
-                  placeholder="Password"
-                  autocomplete="off"
-                  required
-                />
-                <label for="amount">Amount</label>
-              </div>
-              <div class="form-floating">
-                <input
-                  type="text"
-                  class="form-control shadow-none rounded-0 border-bottom-0"
-                  v-model="newItem.metric"
-                  id="metric"
-                  placeholder="Password"
-                  autocomplete="off"
-                  required
-                />
-                <label for="metric">Metric</label>
-              </div>
-              <div class="form-floating">
-                <input
-                  type="text"
-                  class="form-control shadow-none rounded-top-0"
-                  v-model="newItem.value"
-                  id="value"
-                  placeholder="Password"
-                  autocomplete="off"
-                  required
-                />
-                <label for="value">Value</label>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              v-on:click="actionModal"
-            >
-              {{ modalInstance }}
-              <i class="bi bi-plus-lg"></i>
-            </button>
-          </div>
+  <div
+    class="modal fade centered flex-row justify-content-between mb-1 responsive-btn"
+    tabindex="-1"
+    id="modalNewItem"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ modalInstance }} item</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-signin text-center needs-validation" novalidate>
+            <div class="alert alert-danger" role="alert" v-if="no_values">
+              Fill in all fields.
+            </div>
+            <div class="form-floating">
+              <input
+                type="text"
+                class="form-control shadow-none rounded-bottom-0 border-bottom-0"
+                v-model="newItem.name"
+                id="name"
+                placeholder="name@example.com"
+                autocomplete="off"
+                required
+              />
+              <label for="name">Name</label>
+            </div>
+            <div class="form-floating">
+              <input
+                type="number"
+                class="form-control shadow-none rounded-0 border-bottom-0"
+                v-model="newItem.amount"
+                id="amount"
+                placeholder="Password"
+                autocomplete="off"
+                required
+              />
+              <label for="amount">Amount</label>
+            </div>
+            <div class="form-floating">
+              <input
+                type="text"
+                class="form-control shadow-none rounded-0 border-bottom-0"
+                v-model="newItem.metric"
+                id="metric"
+                placeholder="Password"
+                autocomplete="off"
+                required
+              />
+              <label for="metric">Metric</label>
+            </div>
+            <div class="form-floating">
+              <input
+                type="text"
+                class="form-control shadow-none rounded-top-0"
+                v-model="newItem.value"
+                id="value"
+                placeholder="Password"
+                autocomplete="off"
+                required
+              />
+              <label for="value">Value</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            v-on:click="actionModal"
+          >
+            {{ modalInstance }}
+            <i class="bi bi-plus-lg"></i>
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
+  <div class="area-table d-flex flex-column gap-1">
     <nav class="navbar bg-body-tertiary w-100">
       <div class="container-fluid">
         <button type="button" class="btn btn-info" @click="loadProductsOnTable">
@@ -110,6 +113,7 @@
             v-model="search"
             placeholder="Item"
             aria-label="Item"
+            title="You can search for a item in your list"
           />
           <button
             class="btn btn-outline-success shadow-none"
@@ -136,62 +140,62 @@
         </button>
       </div>
     </nav>
-  </div>
 
-  <div class="mobile-table">
-    <table
-      class="table table-striped table-hover text-center table-bordered m-0 align-middle"
-    >
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Amount</th>
-          <th>Metric</th>
-          <th>Value</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in tableData" :key="index">
-          <td>{{ index+1 }}</td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.amount }}x</td>
-          <td>{{ item.metric }}</td>
-          <td>$ {{ item.value }}</td>
-          <td>
-            <i
-              class="bi bi-pencil-square btn btn-warning btn-sm me-3"
-              style="
-                --bs-btn-padding-y: 0.25rem;
-                --bs-btn-padding-x: 0.5rem;
-                --bs-btn-font-size: 0.75rem;
-              "
-              title="Edit"
-              data-bs-toggle="modal"
-              data-bs-target="#modalNewItem"
-              v-on:click="openModalEdit(item)"
-            ></i>
-            <i
-              class="bi bi-trash btn btn-danger btn-sm"
-              style="
-                --bs-btn-padding-y: 0.25rem;
-                --bs-btn-padding-x: 0.5rem;
-                --bs-btn-font-size: 0.75rem;
-              "
-              title="Delete"
-              v-on:click="deleteItem(item.ID)"
-            ></i>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-hover text-center table-bordered m-0 align-middle bg-body position-relative"
+      >
+        <thead class="bg-secondary text-light">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Metric</th>
+            <th>Value</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in tableData" :key="index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.amount }}x</td>
+            <td>{{ item.metric }}</td>
+            <td>$ {{ item.value }}</td>
+            <td>
+              <i
+                class="bi bi-pencil-square btn btn-warning btn-sm me-3"
+                style="
+                  --bs-btn-padding-y: 0.25rem;
+                  --bs-btn-padding-x: 0.5rem;
+                  --bs-btn-font-size: 0.75rem;
+                "
+                title="Edit"
+                data-bs-toggle="modal"
+                data-bs-target="#modalNewItem"
+                v-on:click="openModalEdit(item)"
+              ></i>
+              <i
+                class="bi bi-trash btn btn-danger btn-sm"
+                style="
+                  --bs-btn-padding-y: 0.25rem;
+                  --bs-btn-padding-x: 0.5rem;
+                  --bs-btn-font-size: 0.75rem;
+                "
+                title="Delete"
+                v-on:click="deleteItem(item.ID)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <hr />
-  <div class="d-flex flex-row justify-content-between">
-    <b>Total</b>
-    <b>$ {{ products_total }}</b>
+    <hr />
+    <div class="d-flex flex-row justify-content-between ps-5 pe-5">
+      <b>Total</b>
+      <b>$ {{ products_total }}</b>
+    </div>
   </div>
 </template>
 
@@ -248,7 +252,7 @@ export default {
             .then((resp) => {
               Swal.fire({
                 icon: "success",
-                title: resp.data.message || 'product was deleted!',
+                title: resp.data.message || "product was deleted!",
                 showConfirmButton: true,
               });
               this.loadProductsOnTable();
@@ -278,7 +282,7 @@ export default {
         .then((resp) => {
           Swal.fire({
             icon: "success",
-            title: resp.data.message || 'product was modified!',
+            title: resp.data.message || "product was modified!",
             showConfirmButton: true,
           }).then((confirm) => {
             this.loadProductsOnTable();
@@ -330,7 +334,7 @@ export default {
           this.products_total = data.data;
         })
         .catch((error) => {
-          this.$toast.error(error)
+          this.$toast.error(error);
         });
     },
     findProductByName() {

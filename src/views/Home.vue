@@ -1,19 +1,16 @@
-<style scoped>
-@import "@/assets/Home.css";
-</style>
-
 <template>
-  <main
-    class="d-flex flex-column justify-content-evenly align-items-center w-100 vh-100"
+  <div
+    class="cover-container d-flex flex-column justify-content-between w-100 vh-100 p-3"
+    style="max-width: 60%"
   >
-    <div class="">
-      <HeaderComponent />
-    </div>
+    <HeaderComponent />
 
-    <div class="responsive-view">
-      <router-view></router-view>
-    </div>
-  </main>
+    <router-view></router-view>
+
+    <footer class="text-body">
+      <p>&copy; youngcode.ltda</p>
+    </footer>
+  </div>
 </template>
 
 <script>
