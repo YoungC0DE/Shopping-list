@@ -41,7 +41,7 @@ If you want to test the project, it will be necessary to add this environment va
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://user-images.githubusercontent.com/68437256/228402955-a13dcea4-5938-475b-bff7-a202337bf246.png)
 
 ## Run Locally
 
