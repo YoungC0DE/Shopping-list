@@ -22,7 +22,7 @@
         <div class="modal-body">
           <form class="form-signin text-center needs-validation" novalidate>
             <div class="alert alert-danger" role="alert" v-if="no_values">
-              Fill in all fields.
+              {{ $t('noValues') }}
             </div>
             <div class="form-floating">
               <input
@@ -34,7 +34,7 @@
                 autocomplete="off"
                 required
               />
-              <label for="name">Name</label>
+              <label for="name">{{ $t('fieldForm.name') }}</label>
             </div>
             <div class="form-floating">
               <input
@@ -42,11 +42,11 @@
                 class="form-control shadow-none rounded-0 border-bottom-0"
                 v-model="newItem.amount"
                 id="amount"
-                placeholder="Password"
+                placeholder="value"
                 autocomplete="off"
                 required
               />
-              <label for="amount">Amount</label>
+              <label for="amount">{{ $t('fieldForm.amount') }}</label>
             </div>
             <div class="form-floating">
               <input
@@ -54,11 +54,11 @@
                 class="form-control shadow-none rounded-0 border-bottom-0"
                 v-model="newItem.metric"
                 id="metric"
-                placeholder="Password"
+                placeholder="value"
                 autocomplete="off"
                 required
               />
-              <label for="metric">Metric</label>
+              <label for="metric">{{ $t('fieldForm.metric') }}</label>
             </div>
             <div class="form-floating">
               <input
@@ -66,11 +66,11 @@
                 class="form-control shadow-none rounded-top-0"
                 v-model="newItem.value"
                 id="value"
-                placeholder="Password"
+                placeholder="value"
                 autocomplete="off"
                 required
               />
-              <label for="value">Value</label>
+              <label for="value">{{ $t('fieldForm.value') }}</label>
             </div>
           </form>
         </div>
@@ -80,14 +80,14 @@
             class="btn btn-secondary"
             data-bs-dismiss="modal"
           >
-            Close
+          {{ $t('fieldForm.btnClose') }}
           </button>
           <button
             type="button"
             class="btn btn-primary"
             v-on:click="actionModal"
           >
-            {{ modalInstance }}
+            {{ modalInstance == 'Register' ? $t('fieldForm.btnRegister') : $t('fieldForm.btnUpdate') }}
             <i class="bi bi-plus-lg"></i>
           </button>
         </div>
@@ -99,7 +99,7 @@
     <nav class="navbar bg-body-tertiary w-100">
       <div class="container-fluid">
         <button type="button" class="btn btn-info" @click="loadProductsOnTable">
-          {{ deviceWidth > 600 ? "Refresh" : "" }}
+          {{ deviceWidth > 600 ? $t('fieldForm.btnRefresh') : "" }}
           <i class="bi bi-arrow-clockwise"></i>
         </button>
         <form
@@ -113,7 +113,7 @@
             v-model="search"
             placeholder="Item"
             aria-label="Item"
-            title="You can search for a item in your list"
+            :title="$t('title.search')"
           />
           <button
             class="btn btn-outline-success shadow-none"
@@ -135,7 +135,7 @@
             }
           "
         >
-          {{ deviceWidth > 600 ? "New Item" : "" }}
+          {{ deviceWidth > 600 ? $t('fieldForm.btnRegister') : "" }}
           <i class="bi bi-plus-lg"></i>
         </button>
       </div>
@@ -148,11 +148,11 @@
         <thead class="bg-secondary text-light">
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Metric</th>
-            <th>Value</th>
-            <th>Action</th>
+            <th>{{ $t('fieldForm.name') }}</th>
+            <th>{{ $t('fieldForm.amount') }}</th>
+            <th>{{ $t('fieldForm.metric') }}</th>
+            <th>{{ $t('fieldForm.value') }}</th>
+            <th>{{ $t('fieldForm.action') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -161,7 +161,7 @@
             <td>{{ item.name }}</td>
             <td>{{ item.amount }}x</td>
             <td>{{ item.metric }}</td>
-            <td>$ {{ item.value }}</td>
+            <td>{{ $t('maskForm.prefixMoney') }} {{ item.value }}</td>
             <td>
               <i
                 class="bi bi-pencil-square btn btn-warning btn-sm me-3"
@@ -170,7 +170,7 @@
                   --bs-btn-padding-x: 0.5rem;
                   --bs-btn-font-size: 0.75rem;
                 "
-                title="Edit"
+                :title="$t('title.edit')"
                 data-bs-toggle="modal"
                 data-bs-target="#modalNewItem"
                 v-on:click="openModalEdit(item)"
@@ -182,7 +182,7 @@
                   --bs-btn-padding-x: 0.5rem;
                   --bs-btn-font-size: 0.75rem;
                 "
-                title="Delete"
+                :title="$t('title.delete')"
                 v-on:click="deleteItem(item.ID)"
               ></i>
             </td>
@@ -194,7 +194,7 @@
     <hr />
     <div class="d-flex flex-row justify-content-between ps-5 pe-5">
       <b>Total</b>
-      <b>$ {{ products_total }}</b>
+      <b>{{ $t('maskForm.prefixMoney') }} {{ products_total }}</b>
     </div>
   </div>
 </template>
@@ -235,13 +235,14 @@ export default {
     },
     deleteItem(id) {
       Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: this.$t('swal.title.youSure'),
+        text:  this.$t('swal.desc.youSure'),
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: this.$t('fieldForm.btnCancel'),
+        confirmButtonText: this.$t('fieldForm.btnConfirm'),
       }).then((result) => {
         if (result.isConfirmed) {
           let dataUrl = `user_id=${this.store.user_id}&prod_id=${id}`;
@@ -252,13 +253,13 @@ export default {
             .then((resp) => {
               Swal.fire({
                 icon: "success",
-                title: resp.data.message || "product was deleted!",
+                title: resp.data.message || this.$t('swal.title.productDelete'),
                 showConfirmButton: true,
               });
               this.loadProductsOnTable();
             })
-            .catch((error) => {
-              this.$toast.error(error);
+            .catch(() => {
+              this.$toast.error(this.$t('toast.productDelete'));
             });
         }
       });
@@ -282,15 +283,15 @@ export default {
         .then((resp) => {
           Swal.fire({
             icon: "success",
-            title: resp.data.message || "product was modified!",
+            title: resp.data.message || this.$t('swal.title.productChanged'),
             showConfirmButton: true,
           }).then((confirm) => {
             this.loadProductsOnTable();
             console.log(confirm);
           });
         })
-        .catch((error) => {
-          this.$toast.error(error);
+        .catch(() => {
+          this.$toast.error(this.$t('toast.productChanged'));
         });
     },
     validate() {
@@ -320,8 +321,8 @@ export default {
           this.tableData = data.data;
           this.loadTotalProducts();
         })
-        .catch((error) => {
-          this.$toast.error(error);
+        .catch(() => {
+          this.$toast.error(this.$t('toast.loadTable'));
         });
     },
     loadTotalProducts() {
@@ -333,8 +334,8 @@ export default {
         .then(({ data }) => {
           this.products_total = data.data;
         })
-        .catch((error) => {
-          this.$toast.error(error);
+        .catch(() => {
+          this.$toast.error(this.$t('toast.loadTotal'));
         });
     },
     findProductByName() {
@@ -346,8 +347,8 @@ export default {
         .then(({ data }) => {
           this.tableData = data.data;
         })
-        .catch((error) => {
-          this.$toast.error(error);
+        .catch(() => {
+          this.$toast.error(this.$t('toast.findProduct'));
         });
     },
     createNewItem() {
@@ -363,8 +364,8 @@ export default {
           });
           this.loadProductsOnTable();
         })
-        .catch((error) => {
-          this.$toast.error(error);
+        .catch(() => {
+          this.$toast.error(this.$t('toast.newItem'));
         });
     },
   },

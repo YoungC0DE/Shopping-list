@@ -7,10 +7,10 @@
     <img src="@/assets/images/logo.png" alt="logo" width="200" height="150" />
     <h1 class="h3 mb-3 fw-normal">Login</h1>
     <div class="alert alert-danger" role="alert" v-if="incorrect_login">
-      Incorrect Email or password.
+      {{ $t('incorrectLogin') }}
     </div>
     <div class="alert alert-danger" role="alert" v-if="no_values">
-      Fill in all fields.
+      {{ $t('noValues') }}
     </div>
     <div class="form-floating">
       <input
@@ -22,7 +22,7 @@
         autocomplete="off"
         required
       />
-      <label for="email">Email</label>
+      <label for="email">{{ $t('fieldForm.email') }}</label>
     </div>
     <div class="form-floating">
       <input
@@ -34,13 +34,13 @@
         autocomplete="off"
         required
       />
-      <label for="password">Senha</label>
+      <label for="password">{{ $t('fieldForm.password') }}</label>
     </div>
 
     <div class="checkbox mb-2 mt-2">
       <label>
         <input type="checkbox" value="remember-me" v-model="keepLogged" />
-        Continuar logado
+        {{ $t('fieldForm.keepLogged') }}
       </label>
     </div>
 
@@ -49,15 +49,15 @@
       type="submit"
       v-on:click.prevent="login"
     >
-      Logar
+      {{ $t('fieldForm.btnLogin') }}
     </button>
     <router-link
       to="/register"
       class="text-decoration-none btn btn-outline-secondary w-100"
     >
-      Criar conta
+    {{ $t('fieldForm.btnNewAccount') }}
     </router-link>
-    <p class="mt-4 text-muted">&copy; youngcode.ltda</p>
+    <p class="mt-4 text-muted">&copy; 2023 youngcode.ltda</p>
   </form>
 </template>
 

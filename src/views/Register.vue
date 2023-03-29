@@ -5,9 +5,9 @@
 <template>
   <form class="form-signin text-center needs-validation" novalidate>
     <img src="@/assets/images/logo.png" alt="logo" width="200" height="150" />
-    <h1 class="h3 mb-3 fw-normal">New Account</h1>
+    <h1 class="h3 mb-3 fw-normal"> {{ $t('fieldForm.titleRegister') }} </h1>
     <div class="alert alert-danger" role="alert" v-if="no_values">
-      Fill in all fields.
+      {{ $t('noValues') }}
     </div>
     <div class="form-floating">
       <input
@@ -18,7 +18,7 @@
         autocomplete="off"
         required
       />
-      <label for="name">Full name</label>
+      <label for="name"> {{ $t('fieldForm.name') }} </label>
     </div>
     <div class="form-floating">
       <input
@@ -29,7 +29,7 @@
         autocomplete="off"
         required
       />
-      <label for="email">Email</label>
+      <label for="email">{{ $t('fieldForm.email') }}</label>
     </div>
     <div class="form-floating">
       <input
@@ -40,7 +40,7 @@
         autocomplete="off"
         required
       />
-      <label for="password">Password</label>
+      <label for="password">{{ $t('fieldForm.password') }}</label>
     </div>
     <div class="form-floating">
       <input
@@ -51,25 +51,25 @@
         autocomplete="off"
         required
       />
-      <label for="password_confirm">Confirm your password</label>
+      <label for="password_confirm">{{ $t('fieldForm.passwordConfirm') }}</label>
     </div>
     <div class="alert alert-warning" role="alert" v-show="password_not_match">
-      The passwords not match
+      {{ $t('notMatchPassword') }}
     </div>
     <button
       class="w-100 btn btn-lg btn-primary mb-3"
       type="submit"
       v-on:click.prevent="register()"
     >
-      Create Account
+    {{ $t('fieldForm.btnNewAccount') }}
     </button>
     <router-link
       to="/"
       class="text-decoration-none btn btn-outline-secondary w-100"
     >
-      Login
+    {{ $t('fieldForm.btnLogin') }}
     </router-link>
-    <p class="mt-4 text-muted">&copy; youngcode.ltda</p>
+    <p class="mt-4 text-muted">&copy; 2023 youngcode.ltda</p>
   </form>
 </template>
 
@@ -115,14 +115,14 @@ export default {
           // Go to Home Page
           Swal.fire({
             icon: "success",
-            title: "Created Account",
-            text: "Account successfully created. Please login to proceed.",
+            title: this.$t('swal.title.createdAccount'),
+            text: this.$t('swal.desc.createdAccount'),
             showConfirmButton: true,
           }).then(() => {
               this.$router.push("/");
           });
-        }).catch((error) => {
-          this.$toast.error(error);
+        }).catch(() => {
+          this.$toast.error(this.$t('toast.createdAccount'));
         })
     },
   },

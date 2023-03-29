@@ -26,17 +26,27 @@
       <nav class="nav nav-masthead justify-content-center float-md-end">
         <router-link
           class="nav-link fw-bold text-secondary"
-          :class="current_page == item.name ? 'active' : ''"
+          :class="current_page == 'Profile' ? 'active' : ''"
           aria-current="page"
-          v-on:click="changeHeader(item.name)"
-          :to="item.name"
-          v-for="(item, index) in menu_itens"
-          :key="index"
+          v-on:click="changeHeader('Profile')"
+          to="Profile"
         >
-          {{ item.label }}
+          {{ $t("header.profile") }}
         </router-link>
-        <a class="nav-link fw-bold btn btn-danger text-white" v-on:click="logout()">
-          Logout
+        <router-link
+          class="nav-link fw-bold text-secondary"
+          :class="current_page == 'Dashboard' ? 'active' : ''"
+          aria-current="page"
+          v-on:click="changeHeader('Dashboard')"
+          to="Dashboard"
+        >
+          {{ $t("header.list") }}
+        </router-link>
+        <a
+          class="nav-link fw-bold btn btn-danger text-white"
+          v-on:click="logout()"
+        >
+          {{ $t("header.btnExit") }}
           <i class="bi bi-box-arrow-right"></i>
         </a>
       </nav>
@@ -50,10 +60,6 @@ import "vue-router";
 export default {
   data() {
     return {
-      menu_itens: [
-        { label: "Profile", name: "Profile" },
-        { label: "My list", name: "Dashboard" },
-      ],
       current_page: this.$route.name,
     };
   },

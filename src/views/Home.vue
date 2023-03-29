@@ -8,7 +8,7 @@
     <router-view></router-view>
 
     <footer class="text-body">
-      <p>&copy; youngcode.ltda</p>
+      <p>&copy; 2023 youngcode.ltda</p>
     </footer>
   </div>
 </template>

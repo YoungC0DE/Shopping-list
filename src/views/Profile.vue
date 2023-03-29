@@ -14,9 +14,9 @@
         class="form-signin text-center needs-validation w-50 mx-auto responsive-view"
         novalidate
       >
-        <h1 class="h3 mb-3 fw-normal">Profile</h1>
+        <h1 class="h3 mb-3 fw-normal"> {{ $t('titleScreen.profile') }} </h1>
         <div class="alert alert-warning" role="alert" v-if="password_not_match">
-          Enter your password before changing data.
+          {{ $t('notMatchPassword') }}
         </div>
         <div class="form-floating">
           <input
@@ -27,7 +27,7 @@
             autocomplete="off"
             required
           />
-          <label for="name">Url Image</label>
+          <label for="name"> {{ $t('fieldForm.urlImage') }} </label>
         </div>
         <div class="form-floating">
           <input
@@ -38,47 +38,62 @@
             autocomplete="off"
             required
           />
-          <label for="url">Name</label>
+          <label for="url"> {{ $t('fieldForm.name') }} </label>
         </div>
         <div class="form-floating">
           <input
             type="text"
-            class="form-control shadow-none rounded-0 border-bottom-0"
+            class="form-control shadow-none rounded-0 rounded-bottom"
             v-model="data.email"
             id="email"
             autocomplete="off"
             required
           />
-          <label for="email">Email</label>
+          <label for="email"> {{ $t('fieldForm.email') }} </label>
         </div>
-        <div class="form-floating">
+        <div class="form-check form-switch d-flex flex-row align-items-center justify-content-center mt-4 mb-4 gap-2">
           <input
-            type="password"
-            class="form-control shadow-none m-0 rounded-0"
-            v-model="data.password"
-            id="password"
-            autocomplete="off"
-            required
+            class="form-check-input"
+            type="checkbox"
+            role="switch"
+            v-model="changePassword"
+            id="changePassword"
           />
-          <label for="password">Password</label>
+          <label class="form-check-label" for="changePassword"
+            > {{ $t('fieldForm.changePassword') }} </label
+          >
         </div>
-        <div class="form-floating mb-4">
-          <input
-            type="password"
-            class="form-control shadow-none border-top-0 rounded-top-0"
-            v-model="password_confirm"
-            id="value"
-            autocomplete="off"
-            required
-          />
-          <label for="value">Confirm your password</label>
+        <div v-if="changePassword">
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control shadow-none m-0 rounded-0 rounded-top"
+              v-model="data.password"
+              id="password"
+              autocomplete="off"
+              required
+            />
+            <label for="password"> {{ $t('fieldForm.password') }} </label>
+          </div>
+          <div class="form-floating mb-4">
+            <input
+              type="password"
+              class="form-control shadow-none border-top-0 rounded-top-0"
+              v-model="password_confirm"
+              id="value"
+              autocomplete="off"
+              required
+            />
+            <label for="value"> {{ $t('fieldForm.passwordConfirm') }} </label>
+          </div>
         </div>
+
         <button
           class="w-100 btn btn-lg btn-primary mb-2"
           type="submit"
           v-on:click.prevent="saveChanges()"
         >
-          Save changes
+        {{ $t('fieldForm.btnSave') }}
         </button>
       </form>
     </main>
@@ -105,6 +120,7 @@ export default {
       no_values: false,
       password_not_match: false,
       password_confirm: "",
+      changePassword: false
     };
   },
   setup() {
@@ -134,7 +150,7 @@ export default {
     },
     saveChanges() {
       if (this.validate()) return;
-      let urlData = `user_id=${this.data.user_id}&avatar=${this.data.avatar}&name=${this.data.name}&email=${this.data.email}&password=${this.data.password}`;
+      let urlData = `user_id=${this.data.user_id}&avatar=${this.data.avatar}&name=${this.data.name}&email=${this.data.email}&password=${ this.changePassword ? this.data.password : ''}`;
       axios
         .put(import.meta.env.VITE_BASE_API + "/users/edit?" + urlData)
         .then(() => {
@@ -145,8 +161,8 @@ export default {
           // Go to Home Page
           Swal.fire({
             icon: "success",
-            title: "Changed data",
-            text: "Successfully changed data.",
+            title: this.$t('swal.title.changedData'),
+            text: this.$t('swal.desc.changedData'),
           }).then(() => {
             this.$router.push({ name: "Dashboard" });
           });
