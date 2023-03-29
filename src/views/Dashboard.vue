@@ -104,7 +104,7 @@
   <div class="area-table d-flex flex-column gap-1">
     <nav class="navbar bg-body-tertiary rounded w-100">
       <div class="container-fluid">
-        <form class="d-flex align-items-center w-100 mb-4" role="search">
+        <form class="d-flex align-items-center w-100 mb-4" role="search" @submit.prevent>
           <label>{{ $t("fieldForm.search") }}: </label>
           <input
             class="form-control ms-2 me-2 shadow-none"
@@ -113,6 +113,7 @@
             placeholder="Item"
             aria-label="Item"
             :title="$t('title.search')"
+            @keydown.enter.prevent
           />
           <button
             class="btn btn-outline-success shadow-none"
