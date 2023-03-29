@@ -6,7 +6,7 @@
 >
 
 To start using it, just access the link below:
-https://shopping-list-youngc0de.vercel.app/
+[![ShoppingList](https://img.shields.io/badge/ShoppingList-Visit-9cf)](https://shopping-list-youngc0de.vercel.app/)
 
 For the first time, it will be necessary to create a new account. After creating your account, log in to access the system.
 
