@@ -7,6 +7,7 @@ export const en_US = {
     value: "Value",
     email: "Email",
     action: "Action",
+    search: 'Search',
     password: "Password",
     passwordConfirm: "Confirm your password",
     phone: "Phone",
@@ -73,6 +74,7 @@ export const en_US = {
     btnExit: "Exit",
   },
   theme: {
+    field: "Theme",
     light: "Light",
     dark: "Dark",
   },

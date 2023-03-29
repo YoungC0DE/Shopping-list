@@ -17,12 +17,23 @@
   color: #fff;
   border-bottom-color: #fff;
 }
+
+@media (max-width: 600px) {
+  header div h3 {
+    margin-bottom: 30px;
+    font-size: 22pt;
+  }
+
+  header {
+    margin-bottom: 50px;
+  }
+}
 </style>
 
 <template>
-  <header class="p-5 pt-3 pb-0">
+  <header>
     <div>
-      <h3 class="float-md-start mb-0">ShoppingList</h3>
+      <h3 class="float-md-start">ShoppingList</h3>
       <nav class="nav nav-masthead justify-content-center float-md-end">
         <router-link
           class="nav-link fw-bold text-secondary"

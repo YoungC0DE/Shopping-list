@@ -25,7 +25,7 @@
 
   <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
     <button
-      class="btn btn-primary py-2 dropdown-toggle d-flex align-items-center"
+      class="btn btn-primary py-2 dropdown-toggle d-flex align-items-center gap-1"
       id="bd-theme"
       type="button"
       aria-expanded="false"
@@ -35,6 +35,7 @@
       <svg class="bi my-1 theme-icon-active" width="1em" height="1em">
         <use href="#circle-half"></use>
       </svg>
+      {{ $t('theme.field') }}
       <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
     </button>
     <ul

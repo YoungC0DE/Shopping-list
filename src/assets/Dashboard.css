@@ -1,39 +1,56 @@
 .table-responsive {
-    width: 100%;
-    max-height: 500px;
-    overflow: auto;
-    overflow-y: overlay;
+  width: 100%;
+  max-height: 500px;
+  overflow: auto;
+  overflow-y: overlay;
 }
 
 .area-table {
   min-height: 600px;
 }
 
+.area-table nav div.container-fluid .actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 thead > tr > th {
-    position: sticky;
-    top: -1px;
-    background-color: #373a44 !important;
-    border: none;
+  position: sticky;
+  top: -1px;
+  background-color: #373a44 !important;
+  border: none;
+}
+
+@media (max-width: 600px) {
+  .area-table nav div.container-fluid form {
+    width: 100% !important;
+  }
+  .table-responsive table {
+    width: 180%;
+  }
 }
 
 /* ===== Scrollbar CSS ===== */
-  /* Firefox */
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: #7e839a transparent;
-  }
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #7e839a transparent;
+}
 
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 6px;
-  }
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 6px;
+}
 
-  *::-webkit-scrollbar-track {
-    background: transparent;
-  }
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-  *::-webkit-scrollbar-thumb {
-    background-color: #9698a1;
-    border-radius: 8px;
-    border: -2px none transparent;
-  }
+*::-webkit-scrollbar-thumb {
+  background-color: #9698a1;
+  border-radius: 8px;
+  border: -2px none transparent;
+}

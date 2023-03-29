@@ -22,7 +22,7 @@
         <div class="modal-body">
           <form class="form-signin text-center needs-validation" novalidate>
             <div class="alert alert-danger" role="alert" v-if="no_values">
-              {{ $t('noValues') }}
+              {{ $t("noValues") }}
             </div>
             <div class="form-floating">
               <input
@@ -34,7 +34,7 @@
                 autocomplete="off"
                 required
               />
-              <label for="name">{{ $t('fieldForm.name') }}</label>
+              <label for="name">{{ $t("fieldForm.name") }}</label>
             </div>
             <div class="form-floating">
               <input
@@ -46,7 +46,7 @@
                 autocomplete="off"
                 required
               />
-              <label for="amount">{{ $t('fieldForm.amount') }}</label>
+              <label for="amount">{{ $t("fieldForm.amount") }}</label>
             </div>
             <div class="form-floating">
               <input
@@ -58,7 +58,7 @@
                 autocomplete="off"
                 required
               />
-              <label for="metric">{{ $t('fieldForm.metric') }}</label>
+              <label for="metric">{{ $t("fieldForm.metric") }}</label>
             </div>
             <div class="form-floating">
               <input
@@ -70,7 +70,7 @@
                 autocomplete="off"
                 required
               />
-              <label for="value">{{ $t('fieldForm.value') }}</label>
+              <label for="value">{{ $t("fieldForm.value") }}</label>
             </div>
           </form>
         </div>
@@ -81,7 +81,7 @@
             data-bs-dismiss="modal"
             @click="clear"
           >
-          {{ $t('fieldForm.btnClose') }}
+            {{ $t("fieldForm.btnClose") }}
           </button>
           <button
             type="button"
@@ -89,7 +89,11 @@
             data-bs-dismiss="modal"
             v-on:click="actionModal"
           >
-            {{ modalInstance == 'Register' ? $t('fieldForm.btnRegister') : $t('fieldForm.btnUpdate') }}
+            {{
+              modalInstance == "Register"
+                ? $t("fieldForm.btnRegister")
+                : $t("fieldForm.btnUpdate")
+            }}
             <i class="bi bi-plus-lg"></i>
           </button>
         </div>
@@ -98,19 +102,12 @@
   </div>
 
   <div class="area-table d-flex flex-column gap-1">
-    <nav class="navbar bg-body-tertiary w-100">
+    <nav class="navbar bg-body-tertiary rounded w-100">
       <div class="container-fluid">
-        <button type="button" class="btn btn-info" @click="loadProductsOnTable">
-          {{ deviceWidth > 600 ? $t('fieldForm.btnRefresh') : "" }}
-          <i class="bi bi-arrow-clockwise"></i>
-        </button>
-        <form
-          class="d-flex"
-          :class="deviceWidth > 600 ? 'w-50' : 'w-75'"
-          role="search"
-        >
+        <form class="d-flex align-items-center w-100 mb-4" role="search">
+          <label>{{ $t("fieldForm.search") }}: </label>
           <input
-            class="form-control me-2 shadow-none p-1 ps-2 pe-2"
+            class="form-control ms-2 me-2 shadow-none"
             type="search"
             v-model="search"
             placeholder="Item"
@@ -126,20 +123,30 @@
             <i class="bi bi-search"></i>
           </button>
         </form>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#modalNewItem"
-          @click="
-            () => {
-              modalInstance = 'Register';
-            }
-          "
-        >
-          {{ deviceWidth > 600 ? $t('fieldForm.btnRegister') : "" }}
-          <i class="bi bi-plus-lg"></i>
-        </button>
+        <div class="actions">
+          <button
+            type="button"
+            class="btn btn-info"
+            @click="loadProductsOnTable"
+          >
+            {{ $t("fieldForm.btnRefresh") }}
+            <i class="bi bi-arrow-clockwise"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#modalNewItem"
+            @click="
+              () => {
+                modalInstance = 'Register';
+              }
+            "
+          >
+            {{ $t("fieldForm.btnRegister") }}
+            <i class="bi bi-plus-lg"></i>
+          </button>
+        </div>
       </div>
     </nav>
 
@@ -150,11 +157,11 @@
         <thead class="bg-secondary text-light">
           <tr>
             <th>#</th>
-            <th>{{ $t('fieldForm.name') }}</th>
-            <th>{{ $t('fieldForm.amount') }}</th>
-            <th>{{ $t('fieldForm.metric') }}</th>
-            <th>{{ $t('fieldForm.value') }}</th>
-            <th>{{ $t('fieldForm.action') }}</th>
+            <th>{{ $t("fieldForm.name") }}</th>
+            <th>{{ $t("fieldForm.amount") }}</th>
+            <th>{{ $t("fieldForm.metric") }}</th>
+            <th>{{ $t("fieldForm.value") }}</th>
+            <th>{{ $t("fieldForm.action") }}</th>
           </tr>
         </thead>
         <tbody>
@@ -163,7 +170,7 @@
             <td>{{ item.name }}</td>
             <td>{{ item.amount }}x</td>
             <td>{{ item.metric }}</td>
-            <td>{{ $t('maskForm.prefixMoney') }} {{ item.value }}</td>
+            <td>{{ $t("maskForm.prefixMoney") }} {{ item.value }}</td>
             <td>
               <i
                 class="bi bi-pencil-square btn btn-warning btn-sm me-3"
@@ -196,7 +203,7 @@
     <hr />
     <div class="d-flex flex-row justify-content-between ps-5 pe-5">
       <b>Total</b>
-      <b>{{ $t('maskForm.prefixMoney') }} {{ products_total }}</b>
+      <b>{{ $t("maskForm.prefixMoney") }} {{ products_total }}</b>
     </div>
   </div>
 </template>
@@ -237,14 +244,14 @@ export default {
     },
     deleteItem(id) {
       Swal.fire({
-        title: this.$t('swal.title.youSure'),
-        text:  this.$t('swal.desc.youSure'),
+        title: this.$t("swal.title.youSure"),
+        text: this.$t("swal.desc.youSure"),
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        cancelButtonText: this.$t('fieldForm.btnCancel'),
-        confirmButtonText: this.$t('fieldForm.btnConfirm'),
+        cancelButtonText: this.$t("fieldForm.btnCancel"),
+        confirmButtonText: this.$t("fieldForm.btnConfirm"),
       }).then((result) => {
         if (result.isConfirmed) {
           let dataUrl = `user_id=${this.store.user_id}&prod_id=${id}`;
@@ -255,13 +262,13 @@ export default {
             .then((resp) => {
               Swal.fire({
                 icon: "success",
-                title: resp.data.message || this.$t('swal.title.productDelete'),
+                title: resp.data.message || this.$t("swal.title.productDelete"),
                 showConfirmButton: true,
               });
               this.loadProductsOnTable();
             })
             .catch(() => {
-              this.$toast.error(this.$t('toast.productDelete'));
+              this.$toast.error(this.$t("toast.productDelete"));
             });
         }
       });
@@ -285,7 +292,7 @@ export default {
         .then((resp) => {
           Swal.fire({
             icon: "success",
-            title: resp.data.message || this.$t('swal.title.productChanged'),
+            title: resp.data.message || this.$t("swal.title.productChanged"),
             showConfirmButton: true,
           }).then((confirm) => {
             this.loadProductsOnTable();
@@ -294,7 +301,7 @@ export default {
           });
         })
         .catch(() => {
-          this.$toast.error(this.$t('toast.productChanged'));
+          this.$toast.error(this.$t("toast.productChanged"));
         });
     },
     validate() {
@@ -325,7 +332,7 @@ export default {
           this.loadTotalProducts();
         })
         .catch(() => {
-          this.$toast.error(this.$t('toast.loadTable'));
+          this.$toast.error(this.$t("toast.loadTable"));
         });
     },
     loadTotalProducts() {
@@ -338,7 +345,7 @@ export default {
           this.products_total = data.data;
         })
         .catch(() => {
-          this.$toast.error(this.$t('toast.loadTotal'));
+          this.$toast.error(this.$t("toast.loadTotal"));
         });
     },
     findProductByName() {
@@ -351,7 +358,7 @@ export default {
           this.tableData = data.data;
         })
         .catch(() => {
-          this.$toast.error(this.$t('toast.findProduct'));
+          this.$toast.error(this.$t("toast.findProduct"));
         });
     },
     createNewItem() {
@@ -369,18 +376,18 @@ export default {
           this.clear();
         })
         .catch(() => {
-          this.$toast.error(this.$t('toast.newItem'));
+          this.$toast.error(this.$t("toast.newItem"));
         });
     },
     clear() {
       this.newItem = {
-        prod_id: '',
-        name: '',
-        amount: '',
-        metric: '',
-        value: '',
+        prod_id: "",
+        name: "",
+        amount: "",
+        metric: "",
+        value: "",
       };
-    }
+    },
   },
   mounted() {
     this.loadTotalProducts();

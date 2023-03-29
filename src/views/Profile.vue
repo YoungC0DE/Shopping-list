@@ -1,13 +1,13 @@
-<style>
+<style scoped>
 @import "@/assets/Profile.css";
 </style>
 
 <template>
-  <div class="d-flex flex-column align-items-center">
+  <div id="profile" class="d-flex flex-column align-items-center">
     <main class="w-75">
       <img
         :src="data.avatar"
-        class="img-thumbnail rounded mx-auto d-block rounded-circle p-0 mb-5"
+        class="img-thumbnail rounded mx-auto d-block rounded-circle mb-5"
       />
 
       <form

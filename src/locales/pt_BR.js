@@ -7,6 +7,7 @@ export const pt_BR = {
     value: "Valor",
     email: "E-mail",
     action: "Ação",
+    search: 'Pesquisar',
     password: "Senha",
     passwordConfirm: "Confirme sua senha",
     phone: "Telefone",
@@ -73,6 +74,7 @@ export const pt_BR = {
     btnExit: "Sair",
   },
   theme: {
+    field: "Tema",
     light: "Claro",
     dark: "Escuro",
   },
