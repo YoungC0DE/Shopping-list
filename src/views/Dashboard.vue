@@ -79,12 +79,14 @@
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
+            @click="clear"
           >
           {{ $t('fieldForm.btnClose') }}
           </button>
           <button
             type="button"
             class="btn btn-primary"
+            data-bs-dismiss="modal"
             v-on:click="actionModal"
           >
             {{ modalInstance == 'Register' ? $t('fieldForm.btnRegister') : $t('fieldForm.btnUpdate') }}
@@ -287,6 +289,7 @@ export default {
             showConfirmButton: true,
           }).then((confirm) => {
             this.loadProductsOnTable();
+            this.clear();
             console.log(confirm);
           });
         })
@@ -363,11 +366,21 @@ export default {
             showConfirmButton: true,
           });
           this.loadProductsOnTable();
+          this.clear();
         })
         .catch(() => {
           this.$toast.error(this.$t('toast.newItem'));
         });
     },
+    clear() {
+      this.newItem = {
+        prod_id: '',
+        name: '',
+        amount: '',
+        metric: '',
+        value: '',
+      };
+    }
   },
   mounted() {
     this.loadTotalProducts();
