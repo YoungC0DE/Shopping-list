@@ -205,24 +205,14 @@
             <td>{{ $t("maskForm.prefixMoney") }} {{ item.value }}</td>
             <td>
               <i
-                class="bi bi-pencil-square btn btn-warning btn-sm me-3"
-                style="
-                  --bs-btn-padding-y: 0.25rem;
-                  --bs-btn-padding-x: 0.5rem;
-                  --bs-btn-font-size: 0.75rem;
-                "
+                class="bi bi-pencil-square btn btn-warning btn-sm me-3 btn-for-table"
                 :title="$t('title.edit')"
                 data-bs-toggle="modal"
                 data-bs-target="#modalNewItem"
                 v-on:click="openModalEdit(item)"
               ></i>
               <i
-                class="bi bi-trash btn btn-danger btn-sm"
-                style="
-                  --bs-btn-padding-y: 0.25rem;
-                  --bs-btn-padding-x: 0.5rem;
-                  --bs-btn-font-size: 0.75rem;
-                "
+                class="bi bi-trash btn btn-danger btn-sm btn-for-table"
                 :title="$t('title.delete')"
                 v-on:click="deleteItem(item.ID)"
               ></i>
