@@ -51,8 +51,10 @@ If you want to test the project, it will be necessary to add this environment va
 `VITE_BASE_API=`
 
 ## Screenshots
-
-![App Screenshot](https://user-images.githubusercontent.com/68437256/228402955-a13dcea4-5938-475b-bff7-a202337bf246.png)
+<div style="display: flex">
+  <img src="https://user-images.githubusercontent.com/68437256/228402955-a13dcea4-5938-475b-bff7-a202337bf246.png"  width="500" height="250">
+  <img src="https://user-images.githubusercontent.com/68437256/228704190-c379c3aa-7353-409c-8880-163930b971c4.png"  width="500" height="250">
+<div>
 
 ## Run Locally
 
