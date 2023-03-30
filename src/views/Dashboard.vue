@@ -48,17 +48,21 @@
               />
               <label for="amount">{{ $t("fieldForm.amount") }}</label>
             </div>
-            <div class="form-floating">
-              <input
-                type="text"
-                class="form-control shadow-none rounded-0 border-bottom-0"
+            <div class="input-group">
+              <select 
+                class="form-select shadow-none rounded-0 border-bottom-0 p-3" 
                 v-model="newItem.metric"
                 id="metric"
                 placeholder="value"
                 autocomplete="off"
                 required
-              />
-              <label for="metric">{{ $t("fieldForm.metric") }}</label>
+              >
+                <option selected disabled hidden value="">{{ $t("fieldForm.metric") }}</option>
+                <option :value="$t('fieldForm.metricSelect.kilo')">{{ $t('fieldForm.metricSelect.kilo') }}</option>
+                <option :value="$t('fieldForm.metricSelect.meter')">{{ $t('fieldForm.metricSelect.meter') }}</option>
+                <option :value="$t('fieldForm.metricSelect.liter')">{{ $t('fieldForm.metricSelect.liter') }}</option>
+                <option :value="$t('fieldForm.metricSelect.unit')">{{ $t('fieldForm.metricSelect.unit') }}</option>
+              </select>
             </div>
             <div class="form-floating">
               <input
@@ -79,7 +83,7 @@
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
-            @click="clear"
+            @click="clear()"
           >
             {{ $t("fieldForm.btnClose") }}
           </button>
@@ -101,7 +105,10 @@
     </div>
   </div>
 
-  <div v-if="emptyList" class="d-flex flex-column justify-content-center align-items-center">
+  <div
+    v-if="emptyList"
+    class="d-flex flex-column justify-content-center align-items-center"
+  >
     <h4 class="text-muted">{{ $t("emptyList.text") }}</h4>
     <img src="@/assets/images/icon8.png" />
     <h4>{{ $t("emptyList.complement") }}</h4>
@@ -243,7 +250,7 @@ export default {
     return {
       deviceWidth: screen.width,
       modalInstance: "",
-      tableData: {},
+      tableData: null,
       search: "",
       newItem: {
         prod_id: null,
@@ -323,7 +330,6 @@ export default {
           }).then((confirm) => {
             this.loadProductsOnTable();
             this.clear();
-            console.log(confirm);
           });
         })
         .catch(() => {
@@ -355,8 +361,9 @@ export default {
         )
         .then(({ data }) => {
           this.tableData = data.data;
-          !data.data ? (this.emptyList = true) : "";
           this.loadTotalProducts();
+          if (data.data == undefined) this.emptyList = true;
+          console.log(data.data == undefined);
         })
         .catch(() => {
           this.$toast.error(this.$t("toast.loadTable"));

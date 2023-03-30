@@ -23,7 +23,13 @@ export const en_US = {
     btnClose: "Close",
     btnRefresh: "Refresh",
     btnNewAccount: "Create an account",
-    metricSelect: ["Unit", "Kilogram", "Meter", "Liter"],
+    metricSelect: {
+      field: "Choose the metric",
+      unit: "Unit",
+      kilo: "Kilogram",
+      meter: "Meter",
+      liter: "Liter",
+    },
   },
   titleScreen: {
     profile: "Profile data",

@@ -7,7 +7,7 @@ export const pt_BR = {
     value: "Valor",
     email: "E-mail",
     action: "Ação",
-    search: 'Pesquisar',
+    search: "Pesquisar",
     password: "Senha",
     passwordConfirm: "Confirme sua senha",
     phone: "Telefone",
@@ -23,7 +23,13 @@ export const pt_BR = {
     btnClose: "Fechar",
     btnRefresh: "Atualizar",
     btnNewAccount: "Criar uma conta",
-    metricSelect: ["Unidade", "Kilo", "Metro", "Litro"],
+    metricSelect: {
+      field: "Escolha a medida",
+      unit: "Unidade",
+      kilo: "Kilograma",
+      meter: "Metro",
+      liter: "Litro",
+    },
   },
   titleScreen: {
     profile: "Dados do perfil",
@@ -34,10 +40,11 @@ export const pt_BR = {
       changedData: "Dados alterados.",
       youSure: "Você tem certeza?",
       productDeleted: "Produto deletado.",
-      productChanged: "Produto alterado."
+      productChanged: "Produto alterado.",
     },
     desc: {
-      createdAccount: "Conta criada com sucesso. Por favor, prossiga com o login.",
+      createdAccount:
+        "Conta criada com sucesso. Por favor, prossiga com o login.",
       changedData: "Seus dados foram alterados com sucesso.",
       youSure: "Você não poderá reverter isso.",
     },
@@ -50,7 +57,7 @@ export const pt_BR = {
     loadTable: "Ocorreu um erro ao carregar seus produtos.",
     loadTotal: "Ocorreu um erro ao carregar a soma total dos produtos.",
     findProduct: "Não foi possivel localizar o produto.",
-    newItem: "Ocorreu um erro ao alterar o produto."
+    newItem: "Ocorreu um erro ao alterar o produto.",
   },
   btnTranslate: "Idioma",
   title: {
@@ -62,7 +69,7 @@ export const pt_BR = {
   },
   emptyList: {
     text: "Você não possui nenhum produto registrado.",
-    complement: "Adicione um produto agora mesmo"
+    complement: "Adicione um produto agora mesmo",
   },
   incorrectLogin: "E-mail ou senha incorretos.",
   notMatchPassword: "As senhas não coincidem.",
