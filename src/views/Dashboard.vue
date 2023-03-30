@@ -101,10 +101,34 @@
     </div>
   </div>
 
-  <div class="area-table d-flex flex-column gap-1">
+  <div v-if="emptyList" class="d-flex flex-column justify-content-center align-items-center">
+    <h4 class="text-muted">{{ $t("emptyList.text") }}</h4>
+    <img src="@/assets/images/icon8.png" />
+    <h4>{{ $t("emptyList.complement") }}</h4>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#modalNewItem"
+      @click="
+        () => {
+          modalInstance = 'Register';
+        }
+      "
+    >
+      {{ $t("fieldForm.btnRegister") }}
+      <i class="bi bi-plus-lg"></i>
+    </button>
+  </div>
+
+  <div v-else class="area-table d-flex flex-column gap-1">
     <nav class="navbar bg-body-tertiary rounded w-100">
       <div class="container-fluid">
-        <form class="d-flex align-items-center w-100 mb-4" role="search" @submit.prevent>
+        <form
+          class="d-flex align-items-center w-100 mb-4"
+          role="search"
+          @submit.prevent
+        >
           <label>{{ $t("fieldForm.search") }}: </label>
           <input
             class="form-control ms-2 me-2 shadow-none"
@@ -230,6 +254,7 @@ export default {
       },
       products_total: 0,
       no_values: false,
+      emptyList: false,
     };
   },
   setup() {
@@ -330,6 +355,7 @@ export default {
         )
         .then(({ data }) => {
           this.tableData = data.data;
+          !data.data ? (this.emptyList = true) : "";
           this.loadTotalProducts();
         })
         .catch(() => {

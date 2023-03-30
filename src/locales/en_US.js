@@ -60,6 +60,10 @@ export const en_US = {
     edit: "Edit",
     delete: "Delete",
   },
+  emptyList: {
+    text: "You do not have any registered products.",
+    complement: "Add a new product right now"
+  },
   incorrectLogin: "Incorrect email or password.",
   notMatchPassword: "The passwords do not match.",
   noValues: "Fill in all fields.",

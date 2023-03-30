@@ -60,6 +60,10 @@ export const pt_BR = {
     edit: "Editar",
     delete: "Deletar",
   },
+  emptyList: {
+    text: "Você não possui nenhum produto registrado.",
+    complement: "Adicione um produto agora mesmo"
+  },
   incorrectLogin: "E-mail ou senha incorretos.",
   notMatchPassword: "As senhas não coincidem.",
   noValues: "Preencha todos os campos.",
