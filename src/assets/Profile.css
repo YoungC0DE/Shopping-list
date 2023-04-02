@@ -5,15 +5,18 @@
 }
 
 @media (max-width: 600px) {
-  #profile {
-    width: 100% !important;
-    height: 500px;
-    overflow: auto;
-  }
   #profile .img-thumbnail {
     height: 150px;
     width: 150px;
   }
+  #profile main,
+  #profile main form {
+    width: 90% !important;
+    margin-bottom: 5%;
+  }
+}
+
+@media (max-width: 300px) {
   #profile main,
   #profile main form {
     width: 100% !important;

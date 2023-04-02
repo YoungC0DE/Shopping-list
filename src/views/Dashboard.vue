@@ -3,21 +3,12 @@
 </style>
 
 <template>
-  <div
-    class="modal fade centered flex-row justify-content-between mb-1 responsive-btn"
-    tabindex="-1"
-    id="modalNewItem"
-  >
+  <div class="modal fade centered flex-row justify-content-between mb-1 responsive-btn" tabindex="-1" id="modalNewItem">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">{{ modalInstance }} item</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form class="form-signin text-center needs-validation" novalidate>
@@ -25,78 +16,37 @@
               {{ $t("noValues") }}
             </div>
             <div class="form-floating">
-              <input
-                type="text"
-                class="form-control shadow-none rounded-bottom-0 border-bottom-0"
-                v-model="newItem.name"
-                id="name"
-                placeholder="name@example.com"
-                autocomplete="off"
-                required
-              />
+              <input type="text" class="form-control shadow-none rounded-bottom-0 border-bottom-0" v-model="newItem.name" id="name" placeholder="name@example.com" autocomplete="off" required />
               <label for="name">{{ $t("fieldForm.name") }}</label>
             </div>
             <div class="form-floating">
-              <input
-                type="number"
-                class="form-control shadow-none rounded-0 border-bottom-0"
-                v-model="newItem.amount"
-                id="amount"
-                placeholder="value"
-                autocomplete="off"
-                required
-              />
+              <input type="number" class="form-control shadow-none rounded-0 border-bottom-0" v-model="newItem.amount" id="amount" placeholder="value" autocomplete="off" required />
               <label for="amount">{{ $t("fieldForm.amount") }}</label>
             </div>
             <div class="input-group">
-              <select 
-                class="form-select shadow-none rounded-0 border-bottom-0 p-3" 
-                v-model="newItem.metric"
-                id="metric"
-                placeholder="value"
-                autocomplete="off"
-                required
-              >
-                <option selected disabled hidden value="">{{ $t("fieldForm.metric") }}</option>
-                <option :value="$t('fieldForm.metricSelect.kilo')">{{ $t('fieldForm.metricSelect.kilo') }}</option>
-                <option :value="$t('fieldForm.metricSelect.meter')">{{ $t('fieldForm.metricSelect.meter') }}</option>
-                <option :value="$t('fieldForm.metricSelect.liter')">{{ $t('fieldForm.metricSelect.liter') }}</option>
-                <option :value="$t('fieldForm.metricSelect.unit')">{{ $t('fieldForm.metricSelect.unit') }}</option>
+              <select class="form-select shadow-none rounded-0 border-bottom-0 p-3" v-model="newItem.metric" id="metric" placeholder="value" autocomplete="off" required>
+                <option selected disabled hidden value=""> {{ $t("fieldForm.metricSelect.field") }} </option>
+                <option value="1"> {{ $t("fieldForm.metricSelect.id_1") }} </option>
+                <option value="2"> {{ $t("fieldForm.metricSelect.id_2") }} </option>
+                <option value="3"> {{ $t("fieldForm.metricSelect.id_3") }} </option>
+                <option value="4"> {{ $t("fieldForm.metricSelect.id_4") }} </option>
               </select>
             </div>
             <div class="form-floating">
-              <input
-                type="text"
-                class="form-control shadow-none rounded-top-0"
-                v-model="newItem.value"
-                id="value"
-                placeholder="value"
-                autocomplete="off"
-                required
-              />
+              <input type="text" class="form-control shadow-none rounded-top-0" v-model="newItem.value" id="value" placeholder="value" autocomplete="off" required />
               <label for="value">{{ $t("fieldForm.value") }}</label>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-            @click="clear()"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="clear()">
             {{ $t("fieldForm.btnClose") }}
           </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-dismiss="modal"
-            v-on:click="actionModal"
-          >
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" v-on:click="actionModal">
             {{
               modalInstance == "Register"
-                ? $t("fieldForm.btnRegister")
-                : $t("fieldForm.btnUpdate")
+              ? $t("fieldForm.btnRegister")
+              : $t("fieldForm.btnUpdate")
             }}
             <i class="bi bi-plus-lg"></i>
           </button>
@@ -105,24 +55,15 @@
     </div>
   </div>
 
-  <div
-    v-if="emptyList"
-    class="d-flex flex-column justify-content-center align-items-center"
-  >
+  <div v-if="!tableData.length > 0" class="d-flex flex-column justify-content-center align-items-center">
     <h4 class="text-muted">{{ $t("emptyList.text") }}</h4>
     <img src="@/assets/images/icon8.png" />
     <h4>{{ $t("emptyList.complement") }}</h4>
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#modalNewItem"
-      @click="
-        () => {
-          modalInstance = 'Register';
-        }
-      "
-    >
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNewItem" @click="
+      () => {
+        modalInstance = 'Register';
+      }
+    ">
       {{ $t("fieldForm.btnRegister") }}
       <i class="bi bi-plus-lg"></i>
     </button>
@@ -131,51 +72,24 @@
   <div v-else class="area-table d-flex flex-column gap-1">
     <nav class="navbar bg-body-tertiary rounded w-100">
       <div class="container-fluid">
-        <form
-          class="d-flex align-items-center w-100 mb-4"
-          role="search"
-          @submit.prevent
-        >
-          <label>{{ $t("fieldForm.search") }}: </label>
-          <input
-            class="form-control ms-2 me-2 shadow-none"
-            type="search"
-            v-model="search"
-            placeholder="Item"
-            aria-label="Item"
-            :title="$t('title.search')"
-            @keydown.enter.prevent
-          />
-          <button
-            class="btn btn-outline-success shadow-none"
-            v-on:click="findProductByName"
-            title="Search"
-            type="button"
-          >
+        <form class="d-flex align-items-center w-100 mb-4" role="search" @submit.prevent>
+          <input class="form-control ms-2 me-2 shadow-none" type="search" v-model="search" placeholder="Item" aria-label="Item" :title="$t('title.search')" @keydown.enter.prevent />
+          <button class="d-flex gap-1 justify-content-center search-btn btn btn-outline-success shadow-none" v-on:click="findProductByName" title="Search" type="button">
+            <span class="hide-me-for-responsive">{{ $t("fieldForm.search") }}</span>
             <i class="bi bi-search"></i>
           </button>
         </form>
         <div class="actions">
-          <button
-            type="button"
-            class="btn btn-info"
-            @click="loadProductsOnTable"
-          >
-            {{ $t("fieldForm.btnRefresh") }}
+          <button type="button" class="btn btn-primary" @click="loadProductsOnTable">
+            <span class="hide-me-for-responsive">{{ $t("fieldForm.btnRefresh") }}</span>
             <i class="bi bi-arrow-clockwise"></i>
           </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#modalNewItem"
-            @click="
-              () => {
-                modalInstance = 'Register';
-              }
-            "
-          >
-            {{ $t("fieldForm.btnRegister") }}
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNewItem" @click="
+            () => {
+              modalInstance = 'Register';
+            }
+          ">
+            <span class="hide-me-for-responsive">{{ $t("fieldForm.btnRegister") }}</span>
             <i class="bi bi-plus-lg"></i>
           </button>
         </div>
@@ -183,9 +97,7 @@
     </nav>
 
     <div class="table-responsive">
-      <table
-        class="table table-striped table-hover text-center table-bordered m-0 align-middle bg-body position-relative"
-      >
+      <table class="table table-striped table-hover text-center table-bordered m-0 align-middle bg-body position-relative">
         <thead class="bg-secondary text-light">
           <tr>
             <th>#</th>
@@ -201,21 +113,11 @@
             <td>{{ index + 1 }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.amount }}x</td>
-            <td>{{ item.metric }}</td>
+            <td>{{ $t(`fieldForm.metricSelect.id_${item.metric}`) }}</td>
             <td>{{ $t("maskForm.prefixMoney") }} {{ item.value }}</td>
             <td>
-              <i
-                class="bi bi-pencil-square btn btn-warning btn-sm me-3 btn-for-table"
-                :title="$t('title.edit')"
-                data-bs-toggle="modal"
-                data-bs-target="#modalNewItem"
-                v-on:click="openModalEdit(item)"
-              ></i>
-              <i
-                class="bi bi-trash btn btn-danger btn-sm btn-for-table"
-                :title="$t('title.delete')"
-                v-on:click="deleteItem(item.ID)"
-              ></i>
+              <i class="bi bi-pencil-square btn btn-warning btn-sm me-3 btn-for-table" :title="$t('title.edit')" data-bs-toggle="modal" data-bs-target="#modalNewItem" v-on:click="openModalEdit(item)"></i>
+              <i class="bi bi-trash btn btn-danger btn-sm btn-for-table" :title="$t('title.delete')" v-on:click="deleteItem(item.ID)"></i>
             </td>
           </tr>
         </tbody>
@@ -240,7 +142,7 @@ export default {
     return {
       deviceWidth: screen.width,
       modalInstance: "",
-      tableData: null,
+      tableData: [],
       search: "",
       newItem: {
         prod_id: null,
@@ -251,7 +153,6 @@ export default {
       },
       products_total: 0,
       no_values: false,
-      emptyList: false,
     };
   },
   setup() {
@@ -285,7 +186,7 @@ export default {
             .then((resp) => {
               Swal.fire({
                 icon: "success",
-                title: resp.data.message || this.$t("swal.title.productDelete"),
+                title: this.$t("swal.title.productDeleted"),
                 showConfirmButton: true,
               });
               this.loadProductsOnTable();
@@ -315,7 +216,7 @@ export default {
         .then((resp) => {
           Swal.fire({
             icon: "success",
-            title: resp.data.message || this.$t("swal.title.productChanged"),
+            title: this.$t("swal.title.productChanged"),
             showConfirmButton: true,
           }).then((confirm) => {
             this.loadProductsOnTable();
@@ -347,13 +248,11 @@ export default {
       axios
         .get(
           import.meta.env.VITE_BASE_API +
-            `/products/list&user_id=${this.store.user_id}`
+          `/products/list&user_id=${this.store.user_id}`
         )
         .then(({ data }) => {
           this.tableData = data.data;
           this.loadTotalProducts();
-          if (data.data == undefined) this.emptyList = true;
-          console.log(data.data == undefined);
         })
         .catch(() => {
           this.$toast.error(this.$t("toast.loadTable"));
@@ -363,7 +262,7 @@ export default {
       axios
         .get(
           import.meta.env.VITE_BASE_API +
-            `/products/total?&user_id=${this.store.user_id}`
+          `/products/total?&user_id=${this.store.user_id}`
         )
         .then(({ data }) => {
           this.products_total = data.data;
@@ -376,7 +275,7 @@ export default {
       axios
         .get(
           import.meta.env.VITE_BASE_API +
-            `/products/list&user_id=${this.store.user_id}&name=${this.search}`
+          `/products/list&user_id=${this.store.user_id}&name=${this.search}`
         )
         .then(({ data }) => {
           this.tableData = data.data;
@@ -393,11 +292,12 @@ export default {
         .then((resp) => {
           Swal.fire({
             icon: "success",
-            title: resp.data.message,
+            title: this.$t("swal.title.productAdded"),
             showConfirmButton: true,
+          }).then(() => {
+            this.loadProductsOnTable();
+            this.clear();
           });
-          this.loadProductsOnTable();
-          this.clear();
         })
         .catch(() => {
           this.$toast.error(this.$t("toast.newItem"));

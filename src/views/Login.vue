@@ -7,58 +7,37 @@
     <img src="@/assets/images/logo.png" alt="logo" width="200" height="150" />
     <h1 class="h3 mb-3 fw-normal">Login</h1>
     <div class="alert alert-danger" role="alert" v-if="incorrect_login">
-      {{ $t('incorrectLogin') }}
+      {{ $t("incorrectLogin") }}
     </div>
     <div class="alert alert-danger" role="alert" v-if="no_values">
-      {{ $t('noValues') }}
+      {{ $t("noValues") }}
     </div>
     <div class="form-floating">
-      <input
-        type="email"
-        class="form-control shadow-none"
-        v-model="data.email"
-        id="email"
-        placeholder="name@example.com"
-        autocomplete="off"
-        required
-      />
-      <label for="email">{{ $t('fieldForm.email') }}</label>
+      <input type="email" class="form-control shadow-none" v-model="data.email" id="email" placeholder="name@example.com" autocomplete="off" required />
+      <label for="email">{{ $t("fieldForm.email") }}</label>
     </div>
     <div class="form-floating">
-      <input
-        type="password"
-        class="form-control shadow-none"
-        v-model="data.password"
-        id="password"
-        placeholder="Password"
-        autocomplete="off"
-        required
-      />
-      <label for="password">{{ $t('fieldForm.password') }}</label>
+      <input type="password" class="form-control shadow-none" v-model="data.password" id="password" placeholder="Password" autocomplete="off" required />
+      <label for="password">{{ $t("fieldForm.password") }}</label>
     </div>
 
     <div class="checkbox mb-2 mt-2">
       <label>
         <input type="checkbox" value="remember-me" v-model="keepLogged" />
-        {{ $t('fieldForm.keepLogged') }}
+        {{ $t("fieldForm.keepLogged") }}
       </label>
     </div>
 
-    <button
-      class="w-100 btn btn-lg btn-primary mb-3"
-      type="submit"
-      v-on:click.prevent="login"
-    >
-      {{ $t('fieldForm.btnLogin') }}
+    <button class="w-100 btn btn-lg btn-primary mb-3" type="submit" v-on:click.prevent="login">
+      {{ $t("fieldForm.btnLogin") }}
     </button>
-    <router-link
-      to="/register"
-      class="text-decoration-none btn btn-outline-secondary w-100"
-    >
-    {{ $t('fieldForm.btnNewAccount') }}
+    <router-link to="/register" class="text-decoration-none btn btn-outline-secondary w-100">
+      {{ $t("fieldForm.btnNewAccount") }}
     </router-link>
-    <p class="mt-4 text-muted">&copy; 2023 youngcode.ltda</p>
   </form>
+  <footer class="text-body mt-5 mb-3">
+    <p class="m-0">&copy; 2023 youngcode.ltda</p>
+  </footer>
 </template>
 
 <script>
@@ -96,13 +75,18 @@ export default {
         level: data.data[0].level,
       };
 
-      sessionStorage.setItem("piniaState", btoa(JSON.stringify({
-        user_id: data.data[0].ID,
-        name: data.data[0].name,
-        email: data.data[0].email,
-        avatar: data.data[0].avatar,
-        level: data.data[0].level,
-      })));
+      sessionStorage.setItem(
+        "piniaState",
+        btoa(
+          JSON.stringify({
+            user_id: data.data[0].ID,
+            name: data.data[0].name,
+            email: data.data[0].email,
+            avatar: data.data[0].avatar,
+            level: data.data[0].level,
+          })
+        )
+      );
     },
     validate() {
       this.incorrect_login = false;
@@ -147,7 +131,6 @@ export default {
           this.incorrect_login = true;
         });
     },
-
   },
   mounted() {
     this.wantKeepLogged();

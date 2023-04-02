@@ -5,13 +5,12 @@
   overflow-y: overlay;
 }
 
-.area-table {
-  min-height: 600px;
-}
-
 .btn-for-table {
   padding: 0.25rem 0.5rem !important;
   font-size: 0.75rem !important;
+}
+.area-table nav div.container-fluid form button.search-btn {
+  min-width: 115px;
 }
 
 .area-table nav div.container-fluid .actions {
@@ -32,9 +31,16 @@ thead > tr > th {
 @media (max-width: 600px) {
   .area-table nav div.container-fluid form {
     width: 100% !important;
+    margin-bottom: 12px !important;
   }
   .table-responsive table {
     width: 180%;
+  }
+  .area-table nav div.container-fluid form button.search-btn {
+    min-width: 45px;
+  }
+  .area-table nav div.container-fluid form button.search-btn span {
+    display: none;
   }
 }
 

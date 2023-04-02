@@ -25,10 +25,10 @@ export const pt_BR = {
     btnNewAccount: "Criar uma conta",
     metricSelect: {
       field: "Escolha a medida",
-      unit: "Unidade",
-      kilo: "Kilograma",
-      meter: "Metro",
-      liter: "Litro",
+      id_1: "Unidade",
+      id_2: "Kilograma",
+      id_3: "Metro",
+      id_4: "Litro",
     },
   },
   titleScreen: {
@@ -39,6 +39,7 @@ export const pt_BR = {
       createdAccount: "Conta criada.",
       changedData: "Dados alterados.",
       youSure: "Você tem certeza?",
+      productAdded: "Produto adicionado com sucesso.",
       productDeleted: "Produto deletado.",
       productChanged: "Produto alterado.",
     },

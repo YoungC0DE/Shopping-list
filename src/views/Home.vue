@@ -7,27 +7,20 @@
   .cover-container {
     max-width: 100%;
     display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
     gap: 20px !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
   }
 
-  footer {
-    display: none;
-  }
 }
 </style>
 
 <template>
-  <div
-    class="cover-container d-flex flex-column justify-content-between w-100 vh-100 p-3"
-  >
+  <div class="cover-container d-flex flex-column justify-content-between w-100 vh-100 p-3">
     <HeaderComponent />
-
     <router-view></router-view>
-
-    <footer class="text-body">
-      <p>&copy; 2023 youngcode.ltda</p>
+    <footer class="text-body mt-2 mb-2">
+      <p class="m-0">&copy; 2023 youngcode.ltda</p>
     </footer>
   </div>
 </template>

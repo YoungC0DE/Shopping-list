@@ -25,10 +25,10 @@ export const en_US = {
     btnNewAccount: "Create an account",
     metricSelect: {
       field: "Choose the metric",
-      unit: "Unit",
-      kilo: "Kilogram",
-      meter: "Meter",
-      liter: "Liter",
+      id_1: "Unit",
+      id_2: "Kilogram",
+      id_3: "Meter",
+      id_4: "Liter",
     },
   },
   titleScreen: {
@@ -39,6 +39,7 @@ export const en_US = {
       createdAccount: "Account created.",
       changedData: "Data changed.",
       youSure: "Are you sure?",
+      productAdded: "Product added successfully.",
       productDeleted: "Product deleted.",
       productChanged: "Product changed."
     },

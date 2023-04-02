@@ -4,8 +4,8 @@
 
 <template>
   <main class="main-body d-flex flex-column justify-content-center align-items-center vh-100 text-center text-bg-dark text-body bg-body">
-    <ThemeButton :title="$t('title.theme')" />
-    <LanguageButton :title="$t('title.translate')">{{ $t('btnTranslate') }}</LanguageButton>
+    <ThemeButton />
+    <LanguageButton />
     <router-view></router-view>
   </main>
 </template>
