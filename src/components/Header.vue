@@ -94,7 +94,7 @@ header div nav div.dropdown {
             </li>
           </ul>
         </div>
-        <a class="nav-link fw-bold btn btn-danger text-white m-0 pt-1 pb-1" v-on:click="logout()">
+        <a class="nav-link fw-bold btn btn-danger text-white m-0 pt-1 pb-1 d-flex gap-1" v-on:click="logout()">
           <span class="hide-me-for-responsive">{{ $t("header.btnExit") }}</span> 
           <i class="bi bi-box-arrow-right"></i>
         </a>

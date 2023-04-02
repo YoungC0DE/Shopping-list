@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <div v-if="!tableData.length > 0" class="d-flex flex-column justify-content-center align-items-center">
+  <div v-if="!tableData" class="d-flex flex-column justify-content-center align-items-center">
     <h4 class="text-muted">{{ $t("emptyList.text") }}</h4>
     <img src="@/assets/images/icon8.png" />
     <h4>{{ $t("emptyList.complement") }}</h4>
@@ -74,17 +74,17 @@
       <div class="container-fluid">
         <form class="d-flex align-items-center w-100 mb-4" role="search" @submit.prevent>
           <input class="form-control ms-2 me-2 shadow-none" type="search" v-model="search" placeholder="Item" aria-label="Item" :title="$t('title.search')" @keydown.enter.prevent />
-          <button class="d-flex gap-1 justify-content-center search-btn btn btn-outline-success shadow-none" v-on:click="findProductByName" title="Search" type="button">
+          <button class="d-flex gap-1 justify-content-center search-btn btn btn-outline-success shadow-none d-flex gap-1" v-on:click="findProductByName" title="Search" type="button">
             <span class="hide-me-for-responsive">{{ $t("fieldForm.search") }}</span>
             <i class="bi bi-search"></i>
           </button>
         </form>
         <div class="actions">
-          <button type="button" class="btn btn-primary" @click="loadProductsOnTable">
+          <button type="button" class="btn btn-primary d-flex gap-1" @click="loadProductsOnTable">
             <span class="hide-me-for-responsive">{{ $t("fieldForm.btnRefresh") }}</span>
             <i class="bi bi-arrow-clockwise"></i>
           </button>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNewItem" @click="
+          <button type="button" class="btn btn-primary d-flex gap-1" data-bs-toggle="modal" data-bs-target="#modalNewItem" @click="
             () => {
               modalInstance = 'Register';
             }
