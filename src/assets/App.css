@@ -13,6 +13,25 @@ input:-webkit-autofill {
   ) !important;
 }
 
+.load-transition {
+  width: auto;
+  opacity: 1;
+  animation: loadTransition 400ms ease-in;
+}
+
+@keyframes loadTransition { 
+  0% {
+    opacity: 0;
+    width: 0px;
+    overflow: hidden;
+  }
+
+  100% {
+    opacity: 1;
+    width: auto;
+  }
+}
+
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;

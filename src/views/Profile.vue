@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div id="profile" class="d-flex flex-column align-items-center">
+  <div id="profile" class="d-flex flex-column align-items-center load-transition">
     <main class="w-75">
       <img :src="data.avatar" class="img-thumbnail rounded mx-auto d-block rounded-circle mb-5" />
 
